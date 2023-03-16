@@ -49,8 +49,9 @@ body {
 
 .logout-button {
   position: fixed;
-  top: 10px;
+  top: 15px;
   right: 10px;
+  float: right;
 }
 
 .logout-button a {
@@ -59,4 +60,11 @@ body {
   padding: 10px;
   color: white;
   text-decoration: none;
+}
+
+video {
+  display: block;
+  margin: auto;
+  height: auto;
+  width: 100%;
 }
