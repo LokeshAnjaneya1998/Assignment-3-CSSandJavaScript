@@ -8,7 +8,6 @@
     padding: 5px;
 }
 
-/* Clearfix (clear floats) */
 .row::after {
     content: "";
     clear: both;
@@ -20,7 +19,9 @@ table {
     margin: auto;
 }
 
-table, th, td {
+table,
+th,
+td {
     border: 1px solid black;
     border-radius: 9px;
     overflow-x: auto;
@@ -36,15 +37,15 @@ td {
     text-align: left;
 }
 
-table#t01 tr:nth-child(even) {
+table#ta01 tr:nth-child(even) {
     background-color: #eee;
 }
 
-table#t01 tr:nth-child(odd) {
+table#ta01 tr:nth-child(odd) {
     background-color: #fff;
 }
 
-table#t01 th {
+table#ta01 th {
     background-color: grey;
     color: white;
 }
@@ -56,4 +57,4 @@ table#t01 th {
 
 .boarder {
     padding: 20px 40px;
-  }
+}

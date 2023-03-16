@@ -1,18 +1,18 @@
-
 body {
   background-color: #f1f1f1;
   font-family: Arial;
   margin: 0;
 }
 
-.content {padding:20px;}
+.content {
+  padding: 20px;
+}
 
 .usflogo img {
   height: auto;
   width: auto;
 }
 
-/* Add a black background color to the top navigation */
 .navbar {
   display: flex;
   align-items: center;
@@ -23,7 +23,6 @@ body {
   overflow: hidden;
 }
 
-/* Style the links inside the navigation bar */
 .navbar a {
   float: left;
   color: #f2f2f2;
@@ -33,14 +32,12 @@ body {
   font-size: 17px;
 }
 
-/* Change the color of links on hover */
 .navbar a:hover {
   background-color: #ddd;
   color: black;
 
 }
 
-/* Add a color to the highlight/current link */
 .navbar a.highlight {
   background-color: black;
   color: white;
