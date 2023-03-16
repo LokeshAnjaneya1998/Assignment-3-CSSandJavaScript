@@ -1,5 +1,4 @@
 
-/* Set height to 100% for body and html to enable the background image to cover the whole page: */
 body {
   background-color: #f1f1f1;
   font-family: Arial;
@@ -47,24 +46,14 @@ body {
   color: white;
 }
 
-.logout-button {
-  position: fixed;
-  top: 15px;
-  right: 10px;
-  float: right;
-}
-
-.logout-button a {
+.navbar .logout-button {
   display: block;
-  text-align: center;
-  padding: 10px;
-  color: white;
-  text-decoration: none;
+  margin-left: 175px;
 }
 
 video {
   display: block;
   margin: auto;
   height: auto;
-  width: 100%;
+  width: 80%;
 }
