@@ -55,7 +55,7 @@ table td img {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: initial;
     object-position: center center;
     box-shadow: 0px 2px 5px #006747;
 }
