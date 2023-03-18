@@ -1,9 +1,12 @@
+/* sets the background color of the body to a light gray (#f8f8f8) and sets the font family to Arial or 
+any sans-serif font. It also sets the text color to a dark gray (#333).*/
 body {
     background-color: #f8f8f8;
     font-family: Arial, sans-serif;
     color: #333;
 }
-
+/* styles all <h1> elements on the page. It centers the text, adds a margin of 50 pixels on top, sets 
+the font size to 36 pixels, sets the color to a dark green (#006748), and makes the text uppercase.*/
 h1 {
     text-align: center;
     margin-top: 50px;
