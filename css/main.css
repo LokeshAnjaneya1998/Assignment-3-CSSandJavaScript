@@ -21,7 +21,7 @@ body {
   width: 100%;
   background-color: #006747;
   overflow: hidden;
-	
+
 }
 
 .navbar a {
@@ -47,7 +47,7 @@ body {
 .logout-button {
   position: absolute;
   top: auto;
-	right: 10px;
+  right: 10px;
 }
 
 video {

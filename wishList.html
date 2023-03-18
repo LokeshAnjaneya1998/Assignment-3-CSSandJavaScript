@@ -2,10 +2,6 @@
 <html>
 
 <head>
-  <style data-merge-styles="true"></style>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="./css/main.css">
   <link rel="stylesheet" type="text/css" href="./css/wishlist.css">
 </head>
@@ -24,59 +20,149 @@
   </ul>
 </div>
 <br><br><br>
-  <head>
-    <title>My Job Applications</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>My Job Applications</h1>
-      <table><thead><tr><th></th></tr></thead></table>
-      <form>
-        <label for="company-name">Company Name:</label>
-        <input type="text" id="company-name" name="company-name" required>
-        <br>
-        <label for="job-role">Job Role:</label>
-        <input type="text" id="job-role" name="job-role" required>
-        <br>
-        <label for="job-type">Job Type:</label>
-        <input type="text" id="job-type" name="job-type" required>
-        <br>
-        <label for="applied-date">Applied Date:</label>
-        <input type="date" id="applied-date" name="applied-date" required>
-        <br>
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required>
-        <br>
-        <label for="salary">Salary:</label>
-        <input type="text" id="salary" name="salary" required>
-        <br>
-        <button type="submit">Add Job</button>
-      </form>
-      <table>
-        <thead>
-          <tr><th>Company Name</th><th>Job Role</th><th>Job Type</th><th>Applied Date</th><th>Location</th><th>Salary</th><th></th><th>Action</th>
-            <th></th></tr>
-        </thead>
-        <tbody>
-          <tr><td>ABC Company</td><td>Software Engineer</td><td>Full-Time</td><td>02/28/2023</td><td>New York, NY</td><td>$100,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>XYZ Corporation</td><td>Product Manager</td><td>Part-Time</td><td>03/04/2023</td><td>San Francisco, CA</td><td>$120,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>ABC Company</td><td>Software Engineer</td><td>Internship-Time</td><td>02/28/2023</td><td>New York, NY</td><td>$100,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>XYZ Corporation</td><td>Product Manager</td><td>Full-Time(Remote)</td><td>03/04/2023</td><td>San Francisco, CA</td><td>$120,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>ABC Company</td><td>Software Engineer</td><td>Full-Time(Hybrid)</td><td>02/28/2023</td><td>New York, NY</td><td>$100,000</td>
-             <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>XYZ Corporation</td><td>Product Manager</td><td>Full-Time</td><td>203/04/2023</td><td>San Francisco, CA</td><td>$120,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>ABC Company</td><td>Software Engineer</td><td>Full-Time</td><td>02/28/2023</td><td>New York, NY</td><td>$100,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-          <tr><td>XYZ Corporation</td><td>Product Manager</td><td>Full-Time</td><td>03/04/2023</td><td>San Francisco, CA</td><td>$120,000</td>
-            <td><button>InProcess</button></td><td><button>Archive</button></td><td><button>Delete</button></td></tr>
-            
-        </tbody>
-      </table>
-    </div>
-  </body>
+
+<head>
+  <title>My Job Applications</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>My Job Applications</h1>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+    <form>
+      <label for="company-name">Company Name:</label>
+      <input type="text" id="company-name" name="company-name" required>
+      <br>
+      <label for="job-role">Job Role:</label>
+      <input type="text" id="job-role" name="job-role" required>
+      <br>
+      <label for="job-type">Job Type:</label>
+      <input type="text" id="job-type" name="job-type" required>
+      <br>
+      <label for="applied-date">Applied Date:</label>
+      <input type="date" id="applied-date" name="applied-date" required>
+      <br>
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required>
+      <br>
+      <label for="salary">Salary:</label>
+      <input type="text" id="salary" name="salary" required>
+      <br>
+      <button type="submit">Add Job</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Role</th>
+          <th>Job Type</th>
+          <th>Applied Date</th>
+          <th>Location</th>
+          <th>Salary</th>
+          <th></th>
+          <th>Action</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ABC Company</td>
+          <td>Software Engineer</td>
+          <td>Full-Time</td>
+          <td>02/28/2023</td>
+          <td>New York, NY</td>
+          <td>$100,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>XYZ Corporation</td>
+          <td>Product Manager</td>
+          <td>Part-Time</td>
+          <td>03/04/2023</td>
+          <td>San Francisco, CA</td>
+          <td>$120,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>ABC Company</td>
+          <td>Software Engineer</td>
+          <td>Internship-Time</td>
+          <td>02/28/2023</td>
+          <td>New York, NY</td>
+          <td>$100,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>XYZ Corporation</td>
+          <td>Product Manager</td>
+          <td>Full-Time(Remote)</td>
+          <td>03/04/2023</td>
+          <td>San Francisco, CA</td>
+          <td>$120,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>ABC Company</td>
+          <td>Software Engineer</td>
+          <td>Full-Time(Hybrid)</td>
+          <td>02/28/2023</td>
+          <td>New York, NY</td>
+          <td>$100,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>XYZ Corporation</td>
+          <td>Product Manager</td>
+          <td>Full-Time</td>
+          <td>203/04/2023</td>
+          <td>San Francisco, CA</td>
+          <td>$120,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>ABC Company</td>
+          <td>Software Engineer</td>
+          <td>Full-Time</td>
+          <td>02/28/2023</td>
+          <td>New York, NY</td>
+          <td>$100,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+        <tr>
+          <td>XYZ Corporation</td>
+          <td>Product Manager</td>
+          <td>Full-Time</td>
+          <td>03/04/2023</td>
+          <td>San Francisco, CA</td>
+          <td>$120,000</td>
+          <td><button>InProcess</button></td>
+          <td><button>Archive</button></td>
+          <td><button>Delete</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</body>
+
 </html>
