@@ -52,6 +52,10 @@ table td {
     box-shadow: 0px 2px 5px #006748;
 }
 
+table td:first-child {
+    font-size: 14.99px;
+}
+
 table td img {
     display: block;
     margin: auto;
