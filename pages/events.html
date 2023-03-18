@@ -2,9 +2,11 @@
 <html>
 
 <head>
+  <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
 </head>
+<!-- Navigation bar with logo links to different pages -->
 <div class="navbar">
   <a href="../index.html" alt="USF Logo">
     <img src="../img/fullusflogo.png" style="width:240px;height:48px;">
@@ -21,6 +23,7 @@
 <br><br><br>
 
 <body>
+  <!--Events page gives information about upcoming events that are due-->
   <div class="container">
     <h1>My Events</h1>
     <table>
@@ -34,10 +37,12 @@
         </tr>
       </thead>
       <tbody>
+        <!--Based on company, role one can add and view and delete an event that is to be completed before due date-->
         <tr>
           <td>Microsoft</td>
           <td>Data Analyst</td>
           <td>
+            <!--Dropdown allows us to select events such as coding test, HR interview or technical interview-->
             <select id="eventDropDown1" name="eventDropDown1">
               <option value="option1">Select Event</option>
               <option value="option1">Technical Interview</option>

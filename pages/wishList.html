@@ -2,9 +2,11 @@
 <html>
 
 <head>
+  <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
 </head>
+<!-- Navigation bar with logo links to different pages -->
 <div class="navbar">
   <a href="../index.html" alt="USF Logo">
     <img src="../img/fullusflogo.png" style="width:240px;height:48px;">
@@ -34,6 +36,7 @@
         </tr>
       </thead>
     </table>
+    <!-- Wish List form allows user to add in new job application that they wish to apply in future-->
     <form>
       <label for="company-name">Company Name:</label>
       <input type="text" id="company-name" name="company-name" required>
@@ -56,6 +59,8 @@
       <button type="submit">Add Job</button>
     </form>
     <table>
+      <!-- Wish list Applications contains a table listing companies for which user wishes to apply-->
+      <!--Job application can be moved to in-Process stage if they hear back from the company by clicking the delegated button. For this assignment the buttons are kept dummy-->
       <thead>
         <tr>
           <th>Company Name</th>
