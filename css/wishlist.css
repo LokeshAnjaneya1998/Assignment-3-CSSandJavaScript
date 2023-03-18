@@ -11,11 +11,12 @@ body {
 
 h1 {
   text-align: center;
-  color: #006747;
+  color: #006748;
 }
 
 form {
   margin-top: 20px;
+  
 }
 
 label {
@@ -45,7 +46,7 @@ button {
   padding: 5px 10px;
   border-radius: 10px;
   border: none;
-  background-color: #006747;
+  background-color: #006748;
   color: #fff;
   cursor: pointer;
 }
@@ -65,7 +66,7 @@ td {
 }
 
 th {
-  background-color: #006747;
+  background-color: #006748;
   color: #fff;
 }
 
