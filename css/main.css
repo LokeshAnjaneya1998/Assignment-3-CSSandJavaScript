@@ -44,7 +44,8 @@ div a img {
   font-size: 17px;
   /* Set the font size of the links */
   font-weight: bold;
-   /* Set the font weight of the links */}
+  /* Set the font weight of the links */
+}
 
 /* Change the background color and text color of the links when hovered over */
 .navbar a:hover {

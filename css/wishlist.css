@@ -62,17 +62,22 @@ button {
   margin: auto auto;
   padding: 5px 10px;
   border-radius: 10px;
-  border: none;
-  background-color: #006748;
-  color: #fff;
+  border: 3px solid #006748;
+  background-color: white;
+  color: #006748;
   cursor: pointer;
 }
-#delete-button{
-  background-color: rgb(145, 8, 8);
+
+/* Style the delete button */
+#delete-button {
+  background-color: white;
+  border: 3px solid #c70000;
+  color: #c70000;
 }
 
-#delete-button:hover{
-  background-color: black;
+/* Style the delete button hover*/
+#delete-button:hover {
+  background-color: #d48e8e;
   opacity: 0.8;
 }
 
@@ -105,7 +110,7 @@ tr:hover {
 
 /* Set the background-color and opacity for the button on hover */
 button:hover {
-  background-color: #f44336;
+  background-color: rgb(154, 203, 154);
   opacity: 0.8;
 }
 

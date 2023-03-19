@@ -107,7 +107,8 @@ table td img {
     box-shadow: 0px 2px 5px #006748;
     /* Add a box-shadow to the image */
 }
-.greetingMsg p{
+
+.greetingMsg p {
     color: #006748;
 }
 
