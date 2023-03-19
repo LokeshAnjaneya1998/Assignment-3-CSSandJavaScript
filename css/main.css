@@ -6,7 +6,7 @@ body {
 }
 
 /* Set the width and height of the image inside the .usflogo element */
-.usflogo img {
+div a img {
   width: 240px;
   height: 48px;
 }
