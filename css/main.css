@@ -1,56 +1,84 @@
+/* Set background color, font family, and remove default margins from the body element */
 body {
   background-color: white;
   font-family: Arial, sans-serif;
   margin: 0;
 }
 
+/* Set the width and height of the image inside the .usflogo element */
 .usflogo img {
   width: 240px;
   height: 48px;
 }
 
+/* Create a fixed navbar that stays at the top of the screen */
 .navbar {
   display: flex;
+  /* Use a flex container for the navbar */
   align-items: center;
+  /* Vertically center the items in the navbar */
   position: fixed;
+  /* Make the navbar stay in place */
   top: auto;
+  /* Set the top position to automatic */
   width: 100%;
+  /* Make the navbar span the entire width of the screen */
   background-color: #006748;
+  /* Set the background color of the navbar */
   overflow: hidden;
-
+  /* Hide any overflow from the navbar */
 }
 
+/* Style the links inside the navbar */
 .navbar a {
   float: left;
+  /* Float the links to the left */
   color: #f2f2f2;
+  /* Set the color of the text in the links */
   text-align: center;
+  /* Center the text inside the links */
   padding: 5px 35px;
+  /* Add some padding to the links */
   text-decoration: none;
+  /* Remove the underline from the links */
   font-size: 17px;
+  /* Set the font size of the links */
 }
 
+/* Change the background color and text color of the links when hovered over */
 .navbar a:hover {
   background-color: #ddd;
   color: black;
-
 }
 
+/* Set a different background color and text color for the link with class "highlight" */
 .navbar a.highlight {
   background-color: black;
   color: white;
 }
 
+/* Style the logo image on the home page */
 .homePageLogo img {
   padding: 60px 0px;
+  /* Add some padding to the logo */
   width: 40%;
+  /* Set the width of the logo */
   height: auto;
+  /* Allow the height to adjust automatically */
   float: left;
+  /* Float the logo to the left */
   margin-left: 30%;
+  /* Add some margin to the left of the logo */
 }
 
+/* Style the video element */
 video {
   display: block;
+  /* Make the video a block-level element */
   margin: auto;
+  /* Center the video horizontally */
   height: auto;
+  /* Allow the height to adjust automatically */
   width: 80%;
+  /* Set the width of the video */
 }
