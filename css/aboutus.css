@@ -1,7 +1,7 @@
 /* sets the background color of the body to a light gray (#f8f8f8) and sets the font family to Arial or 
 any sans-serif font. It also sets the text color to a dark gray (#333).*/
 body {
-    background-color: #f8f8f8;
+    background-color: white;
     font-family: Arial, sans-serif;
     color: #333;
 }

@@ -29,6 +29,35 @@
     <table>
       <thead>
         <tr>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+    <!-- Wish List form allows user to add in new job application that they wish to apply in future-->
+    <form>
+      <div clas="addEvents">
+        <label for="events-company-name">Company Name:</label>
+        <input type="text" id="events-company-name" name="events-company-name" required>
+
+        <label for="events-job-role">Job Role:</label>
+        <input type="text" id="events-job-role" name="events-job-role" required>
+
+        <label for="eventDropDown">Event:</label>
+        <select id="eventDropDown" name="eventDropDown">
+          <option value="eventoption1">Select Event</option>
+          <option value="eventoption2">Technical Interview</option>
+          <option value="eventoption3">HR Interview</option>
+          <option value="eventoption4">Coding Test</option>
+        </select>
+        <label for="due-date">Due Date:</label>
+        <input type="date" id="due-date0" name="due-date">
+      </div>
+
+      <button id="submitButton" type="submit">Add Event</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
           <th>Company Nmae</th>
           <th>Job Role</th>
           <th>Event</th>
@@ -42,7 +71,8 @@
           <td>Microsoft</td>
           <td>Data Analyst</td>
           <td>
-            <!--Dropdown allows us to select events such as coding test, HR interview or technical interview-->
+            <!--Dropdown allows us to select events which are pushed from In Process/Offers such as coding test, 
+              HR interview or technical interview-->
             <select id="eventDropDown1" name="eventDropDown1">
               <option value="option1">Select Event</option>
               <option value="option1">Technical Interview</option>
@@ -122,31 +152,6 @@
           </td>
           <td><input type="date" id="due-date" name="due-date6"></td>
           <td><button>Delete Event</button></td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th>Company Nmae</th>
-          <th>Job Role</th>
-          <th>Event</th>
-          <th>Due Date</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text" id="events-company-name" name="events-company-name" required></td>
-          <td><input type="text" id="events-job-role" name="events-job-role" required></td>
-          <td>
-            <select id="eventDropDown6" name="eventDropDown6">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date6"></td>
-          <td><button type="submit">Add Event</button></td>
         </tr>
       </tbody>
     </table>
