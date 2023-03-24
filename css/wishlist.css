@@ -1,86 +1,124 @@
+/* Set the font family, background color, and text color for the body of the page */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .container {
-    max-width: auto;
-    margin: auto 0;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #006747;
-  }
-  
-  form {
-    margin-top: 20px;
-  }
-  
-  label {
-    display: inline-block;
-    width: 125px;
-    text-align: right;
-  }
-  
-  input[type="text"], input[type="date"] {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-  }
-  
-  #due-date {
-    background-color: #f2f2f2;
-    border: none;
-    color: black;
-    font-size: larger;
-    padding: 5px;
-  }
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: #333;
+}
 
-  button {
-    margin: auto auto;
-    padding: 5px 10px;
-    border-radius: 10px;
-    border: none;
-    background-color: #006747;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  table {
-    border-collapse: collapse;
-    margin-top: 20px;
-    width: 100%;
-    max-width: auto;
-  }
-  
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #006747;
-    color: #fff;
-  }
-  
-  tr:hover {
-    background-color: #f5f5f5;
-  }
-  
-  button:hover {
-    background-color: #f44336;
-    opacity: 0.8;
-  }
+/* Center the content and add padding to the container class */
+.container {
+  margin: auto 0;
+  padding: 20px 40px;
+}
 
-  select{
-    background-color: #f2f2f2;
-    border: none;
-    color: black;
-    font-size: medium;
-    padding: 5px;
-  }
+/* Center the heading and set the color */
+h1 {
+  text-align: center;
+  color: #006748;
+  font-weight: 900;
+}
+
+/* Style the form by adding margin, border, padding, border-radius, and box-shadow */
+form {
+  margin-top: 10px;
+  border: 1px solid #006748;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 0px 2px 5px #006748;
+  font-weight: bold;
+}
+
+
+/* Set the display, margin, width, and text alignment for the label element */
+label {
+  display: inline-block;
+  margin-top: 5px;
+  width: 127px;
+  text-align: right;
+}
+
+/* Style the input fields by setting the margin, padding, border-radius, border, and background color */
+input[type="text"],
+input[type="date"] {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+/* Style the due date field */
+#due-date {
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: larger;
+  padding: 5px;
+}
+
+/* Style the button by setting the margin, padding, border-radius, border, background color, and cursor */
+button {
+  margin: auto auto;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 3px solid #006748;
+  background-color: white;
+  color: #006748;
+  cursor: pointer;
+}
+
+/* Style the delete button */
+#delete-button {
+  background-color: white;
+  border: 3px solid #c70000;
+  color: #c70000;
+}
+
+/* Style the delete button hover*/
+#delete-button:hover {
+  background-color: #d48e8e;
+  opacity: 0.8;
+}
+
+/* Style the table by setting the border-collapse, margin-top, width, and max-width */
+table {
+  border-collapse: collapse;
+  margin-top: 20px;
+  width: 100%;
+  max-width: auto;
+}
+
+/* Style the table header and cells by setting the padding, text-alignment, and border-bottom */
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Style the table header by setting the background-color and color */
+th {
+  background-color: #006748;
+  color: #fff;
+}
+
+/* Set the background-color for the table row on hover */
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Set the background-color and opacity for the button on hover */
+button:hover {
+  background-color: rgb(154, 203, 154);
+  opacity: 0.8;
+}
+
+/* Style the select field by setting the background-color, border, color, font-size, and padding */
+select {
+  background-color: white;
+  border: none;
+  color: black;
+  font-size: medium;
+  padding: 5px;
+}

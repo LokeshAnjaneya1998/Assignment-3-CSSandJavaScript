@@ -1,65 +1,119 @@
+/* Set background color, font family, and text color for the body element */
 body {
-    background-color: #f8f8f8;
+    background-color: white;
     font-family: Arial, sans-serif;
     color: #333;
 }
 
+/* Style the heading level 1 elements */
 h1 {
     text-align: center;
+    /* Center the text in the heading */
     margin-top: 50px;
+    /* Add some margin to the top of the heading */
     font-size: 36px;
-    color: #006747;
+    /* Set the font size of the heading */
+    color: #006748;
+    /* Set the color of the text in the heading */
     text-transform: uppercase;
+    /* Convert the text to uppercase */
+    font-weight: bold;
+    /* Set the font weight of the text in the heading */
 }
 
+/* Style the paragraph elements */
 p {
     text-align: justify;
+    /* Justify the text in the paragraph */
     color: #333;
+    /* Set the color of the text in the paragraph */
 }
 
+/* Style the table element */
 table {
     margin: 50px auto;
+    /* Center the table horizontally and add some margin to the top */
     border-collapse: collapse;
+    /* Collapse the borders of the table */
     width: 80%;
+    /* Set the width of the table */
     background-color: white;
-    box-shadow: 0px 5px 10px #006747;
+    /* Set the background color of the table */
+    box-shadow: 0px 5px 10px #006748;
+    /* Add a box-shadow to the table */
 }
 
+/* Change the background color of the table rows when hovered over */
 table tr:hover {
     background-color: #f5f5f5;
 }
 
+/* Style the first row of the table */
 table tr:first-child {
-    background-color: #006747;
+    background-color: #006748;
+    /* Set the background color of the first row */
     color: white;
+    /* Set the color of the text in the first row */
     text-transform: uppercase;
+    /* Convert the text to uppercase */
 }
 
+/* Style the table header cells */
 table th {
     padding: 20px;
+    /* Add some padding to the header cells */
     text-align: center;
+    /* Center the text in the header cells */
     border-bottom: 1px solid #ddd;
-    box-shadow: 0px 2px 5px #006747;
+    /* Add a bottom border to the header cells */
+    box-shadow: 0px 2px 5px #006748;
+    /* Add a box-shadow to the header cells */
 }
 
+/* Style the table data cells */
 table td {
     padding: 20px;
-    text-align: left;
+    /* Add some padding to the data cells */
+    text-align: justify;
+    /* Justify the text in the data cells */
     border-bottom: 1px solid #ddd;
-    box-shadow: 0px 2px 5px #006747;
+    /* Add a bottom border to the data cells */
+    box-shadow: 0px 2px 5px #006748;
+    /* Add a box-shadow to the data cells */
 }
 
+/* Style the first data cell in each row */
+table td:first-child {
+    font-size: 14.99px;
+    /* Set the font size of the first data cell */
+}
+
+/* Style the image inside the table data cells */
 table td img {
     display: block;
+    /* Display the image as a block-level element */
     margin: auto;
-    width: 100px;
-    height: 100px;
+    /* Center the image horizontally */
+    width: 200px;
+    /* Set the width of the image */
+    height: 200px;
+    /* Set the height of the image */
     border-radius: 50%;
-    object-fit: cover;
+    /* Add a border-radius to the image */
+    object-fit: initial;
+    /* Set the object-fit property of the image */
     object-position: center center;
-    box-shadow: 0px 2px 5px #006747;
+    /* Center the object inside the image */
+    box-shadow: 0px 2px 5px #006748;
+    /* Add a box-shadow to the image */
 }
 
+.greetingMsg p {
+    color: #006748;
+}
+
+/* Style the elements with class "boarder" */
 .boarder {
     padding: 20px 40px;
+    /* Add padding of 20px to the top and bottom, and 40px to the left and right.*/
 }
