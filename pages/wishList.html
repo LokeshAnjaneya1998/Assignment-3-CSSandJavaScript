@@ -5,7 +5,7 @@
   <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
-  <meta charset="utf-8">
+
 </head>
 <!-- Navigation bar with logo links to different pages -->
 <div class="navbar">
@@ -38,7 +38,7 @@
       </thead>
     </table>
     <!-- Wish List form allows user to add in new job application that they wish to apply in future-- action="http://localhost:3000/addwishlist" method="POST"-->
-    <form >
+    <form>
       <label for="wishlistCompanyName">Company Name:</label>
       <input type="text" id="wishlistCompanyName" name="wishlistCompanyName" placeholder="wishlistCompanyName" required>
       <br>
@@ -57,7 +57,7 @@
       <label for="wishlistSalary">Salary:</label>
       <input type="text" id="wishlistSalary" name="wishlistSalary" placeholder="wishlistSalary" required>
       <br>
-      <button type ="submit" onclick="addData()">Add Job</button>
+      <button type="submit" id="addJobButton">Add Job</button>
     </form>
     <table id="wishlistDataTable">
       <!-- Wish list Applications contains a table listing companies for which user wishes to apply-->
@@ -75,9 +75,10 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="wishlistDataTableBody">
         
        <script type="" src="../JavaScript/wishlistPage.js"></script>
+
       </tbody>
     </table>
   </div>

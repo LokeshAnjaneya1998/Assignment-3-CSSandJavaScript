@@ -1,72 +1,113 @@
-const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database("bullsData.sqlite", (err) => {
-    if (err) {
-        console.error(err.message);
-    } else {
-        console.log("Connected to the database.");
-    }
+// open a connection to the IndexedDB database
+const request = window.indexedDB.open("bullsData.json", 1);
+// create an object store to store job records
+request.onerror = function(event) {
+    console.log("Error opening IndexedDB database.");
+  };
+  
+  request.onsuccess = function(event) {
+    const db = event.target.result;
+    console.log("Connected to the IndexedDB database.");
+  };
+  
+request.onupgradeneeded = (event) => {
+  const db = event.target.result;
+  db.createObjectStore('jobs', { keyPath: 'id', autoIncrement: true });
+  console.log("Started in IndexedDB database.");
+};
+
+// add a new job record to the database and display it in the table
+document.getElementById('addJobButton').addEventListener('click', (event) => {
+  event.preventDefault();
+  
+  const Companyname  = document.getElementById('wishlistCompanyName').value;
+  const jobRole = document.getElementById('wishlistJobRole').value;
+  const jobType  = document.getElementById('wishlistJobType').value;
+  const appliedDate = document.getElementById('wishlistAppliedDate').value;
+  const location  = document.getElementById('wishlistLocation').value;
+  const salary = document.getElementById('wishlistSalary').value;
+
+  if (Companyname && jobRole && jobType && appliedDate && location && salary) {
+    const transaction = request.result.transaction('jobs', 'readwrite');
+    const store = transaction.objectStore('jobs');
+
+    const job = { Companyname, jobRole, jobType, appliedDate, location, salary };
+
+    const addRequest = store.add(job);
+
+    addRequest.onsuccess = () => {
+      const tbody = document.getElementById('wishlistDataTableBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${job.Companyname}</td>
+        <td>${job.jobRole}</td>
+        <td>${job.jobType}</td>
+        <td>${job.appliedDate}</td>
+        <td>${job.location}</td>
+        <td>${job.salary}</td>
+        <td><button>In Process</button></td>
+        <td><button>Archive</button></td>
+        <td><button class="delete-button" id="delete-button" data-id="${request.result}">Delete</button></td>
+      `;
+      tbody.appendChild(tr);
+    };
+
+    addRequest.onerror = (event) => {
+      console.error('Error adding job to database', event.target.error);
+    };
+  }
 });
-// ... other database operations
 
+// delete a job record from the database and the table
+document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
+  if (event.target.classList.contains('delete-button')) {
+    const db = request.result;
+    const transaction = db.transaction('jobs', 'readwrite');
+    const store = transaction.objectStore('jobs');
 
+    const id = Number(event.target.getAttribute('data-id'));
 
-    db.run('CREATE TABLE IF NOT EXISTS wishlistdata (id INTEGER PRIMARY KEY, companyname TEXT, jobrole TEXT, jobtype TEXT, applieddate TEXT, location TEXT, salary TEXT)');
+    const deleteRequest = store.delete(id);
 
-function deleteRow(btn) {
-    // Get the row to be deleted
-    var row = btn.parentNode.parentNode;
+    deleteRequest.onsuccess = () => {
+      event.target.parentNode.parentNode.remove();
+      console.log("Deleted Successfully");
+    };
 
-    // Delete the row
-    row.parentNode.removeChild(row);
+    request.onerror = (event) => {
+      console.error('Error deleting job from database', event.target.error);
+    };
+  }
+});
 
-}
-
-
-function addData() {
-
-    var msg1 = "My javaScript1";
-    console.log(msg1);
-    // Get the values of the input fields
-    var Companyname = document.getElementById("wishlistCompanyName").value;
-    var jobRole = document.getElementById("wishlistJobRole").value;
-    var jobType = document.getElementById("wishlistJobType").value;
-    var appliedDate = document.getElementById("wishlistAppliedDate").value;
-    var location = document.getElementById("wishlistLocation").value;
-    var salary = document.getElementById("wishlistSalary").value;
-
-    // Create a new row in the table with the values
-    var table = document.getElementById("wishlistDataTable");
-    var row = table.insertRow();
-    var CompanynameCell = row.insertCell();
-    var jobRoleCell = row.insertCell();
-    var jobTypeCell = row.insertCell();
-    var appliedDateCell = row.insertCell();
-    var locationCell = row.insertCell();
-    var salaryCell = row.insertCell();
-    var inProcessCell = row.insertCell();
-    var archiveCell = row.insertCell();
-    var deleteCell = row.insertCell();
-
-
-    CompanynameCell.innerHTML = Companyname;
-    jobRoleCell.innerHTML = jobRole;
-    jobTypeCell.innerHTML = jobType;
-    appliedDateCell.innerHTML = appliedDate;
-    locationCell.innerHTML = location;
-    salaryCell.innerHTML = salary;
-    inProcessCell.innerHTML = '<button>InProcess</button>'
-    archiveCell.innerHTML = '<button>Archive</button>'
-    deleteCell.innerHTML = '<button id="delete-button" onclick="deleteRow(this)">Delete</button>';
-    db.run(`INSERT INTO wishlistdata (companyname, jobrole, jobtype, applieddate, location, salary) VALUES (?, ?, ?, ?, ?, ?)`, [Companyname, jobRole, jobType, appliedDate, location, salary], function (err) {
-        if (err) {
-            return console.log(err.message);
-        }
-
-        console.log('Row inserted: ${companyname} - ${jobrole} - ${jobtype} - ${applieddate} - ${location} - ${salary}');
-    });
-    db.close();
-}
-
-
-
-
+// load the existing jobs from the database and display them in the table
+request.onsuccess = () => {
+    const transaction = request.result.transaction('jobs', 'readonly');
+    const store = transaction.objectStore('jobs');
+    const getAllRequest = store.getAll();
+  
+    getAllRequest.onsuccess = () => {
+      const jobs = getAllRequest.result;
+      const tbody = document.getElementById('wishlistDataTableBody');
+  
+      for (const job of jobs) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${job.Companyname}</td>
+          <td>${job.jobRole}</td>
+          <td>${job.jobType}</td>
+          <td>${job.appliedDate}</td>
+          <td>${job.location}</td>
+          <td>${job.salary}</td>
+          <td><button>In Process</button></td>
+          <td><button>Archive</button></td>
+          <td><button class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
+        `;
+        tbody.appendChild(tr);
+      }
+    };
+  
+    getAllRequest.onerror = (event) => {
+      console.error('Error getting jobs from database', event.target.error);
+    };
+  };
