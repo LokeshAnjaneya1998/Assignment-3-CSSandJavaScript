@@ -5,6 +5,7 @@
   <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
+
 </head>
 <!-- Navigation bar with logo links to different pages -->
 <div class="navbar">
@@ -36,29 +37,29 @@
         </tr>
       </thead>
     </table>
-    <!-- Wish List form allows user to add in new job application that they wish to apply in future-->
+    <!-- Wish List form allows user to add in new job application that they wish to apply in future-- action="http://localhost:3000/addwishlist" method="POST"-->
     <form>
-      <label for="company-name">Company Name:</label>
-      <input type="text" id="company-name" name="company-name" required>
+      <label for="wishlistCompanyName">Company Name:</label>
+      <input type="text" id="wishlistCompanyName" name="wishlistCompanyName" placeholder="Enter Company Name" required>
       <br>
-      <label for="job-role">Job Role:</label>
-      <input type="text" id="job-role" name="job-role" required>
+      <label for="wishlistJobRole">Job Role:</label>
+      <input type="text" id="wishlistJobRole" name="wishlistJobRole" placeholder="Enter Job Role" required>
       <br>
-      <label for="job-type">Job Type:</label>
-      <input type="text" id="job-type" name="job-type" required>
+      <label for="wishlistJobType">Job Type:</label>
+      <input type="text" id="wishlistJobType" name="wishlistJobType" placeholder="Enter Job Type" required>
       <br>
-      <label for="applied-date">Applied Date:</label>
-      <input type="date" id="applied-date" name="applied-date" required>
+      <label for="wishlistAppliedDate">Applied Date:</label>
+      <input type="date" id="wishlistAppliedDate" name="wishlistAppliedDate" placeholder="Enter Applied Dtae" required>
       <br>
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location" required>
+      <label for="wishlistLocation">Location:</label>
+      <input type="text" id="wishlistLocation" name="wishlistLocation" placeholder="Enter Job Location" required>
       <br>
-      <label for="salary">Salary:</label>
-      <input type="text" id="salary" name="salary" required>
+      <label for="wishlistSalary">Salary:</label>
+      <input type="text" id="wishlistSalary" name="wishlistSalary" placeholder="Enter Salary" required>
       <br>
-      <button type="submit">Add Job</button>
+      <button type="submit" id="addJobButton">Add Job</button>
     </form>
-    <table>
+    <table id="wishlistDataTable">
       <!-- Wish list Applications contains a table listing companies for which user wishes to apply-->
       <!--Job application can be moved to in-Process stage if they hear back from the company by clicking the delegated button. For this assignment the buttons are kept dummy-->
       <thead>
@@ -74,95 +75,9 @@
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>ABC Company</td>
-          <td>Software Engineer</td>
-          <td>Full-Time</td>
-          <td>02/28/2023</td>
-          <td>New York, NY</td>
-          <td>$100,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>XYZ Corporation</td>
-          <td>Product Manager</td>
-          <td>Part-Time</td>
-          <td>03/04/2023</td>
-          <td>San Francisco, CA</td>
-          <td>$120,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>ABC Company</td>
-          <td>Software Engineer</td>
-          <td>Internship-Time</td>
-          <td>02/28/2023</td>
-          <td>New York, NY</td>
-          <td>$100,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>XYZ Corporation</td>
-          <td>Product Manager</td>
-          <td>Full-Time(Remote)</td>
-          <td>03/04/2023</td>
-          <td>San Francisco, CA</td>
-          <td>$120,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>ABC Company</td>
-          <td>Software Engineer</td>
-          <td>Full-Time(Hybrid)</td>
-          <td>02/28/2023</td>
-          <td>New York, NY</td>
-          <td>$100,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>XYZ Corporation</td>
-          <td>Product Manager</td>
-          <td>Full-Time</td>
-          <td>02/04/2023</td>
-          <td>San Francisco, CA</td>
-          <td>$120,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>ABC Company</td>
-          <td>Software Engineer</td>
-          <td>Full-Time</td>
-          <td>02/28/2023</td>
-          <td>New York, NY</td>
-          <td>$100,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
-        <tr>
-          <td>XYZ Corporation</td>
-          <td>Product Manager</td>
-          <td>Full-Time</td>
-          <td>03/04/2023</td>
-          <td>San Francisco, CA</td>
-          <td>$120,000</td>
-          <td><button>InProcess</button></td>
-          <td><button>Archive</button></td>
-          <td><button id="delete-button">Delete</button></td>
-        </tr>
+      <tbody id="wishlistDataTableBody">
+        
+       <script type="" src="../JavaScript/wishlistPage.js"></script>
 
       </tbody>
     </table>
