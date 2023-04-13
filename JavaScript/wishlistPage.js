@@ -1,20 +1,37 @@
 // open a connection to the IndexedDB database
-const request = window.indexedDB.open("bullsData.json", 1);
+const request = window.indexedDB.open("wishlistbullsData", 1);
+const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
 // create an object store to store job records
 request.onerror = function(event) {
-    console.log("Error opening IndexedDB database.");
+    console.log("Error opening JOBS database.");
   };
   
   request.onsuccess = function(event) {
     const db = event.target.result;
-    console.log("Connected to the IndexedDB database.");
+    console.log("Connected to the JOBS database.");
   };
   
 request.onupgradeneeded = (event) => {
   const db = event.target.result;
   db.createObjectStore('jobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in IndexedDB database.");
+  console.log("Started in JOBS database.");
 };
+
+inProcessrequest.onerror = function(event) {
+  console.log("Error opening IN PROCESS database.");
+};
+
+inProcessrequest.onsuccess = function(event) {
+  const db = event.target.result;
+  console.log("Connected to the IN PROCESS database.");
+};
+
+inProcessrequest.onupgradeneeded = (event) => {
+  const db = event.target.result;
+  db.createObjectStore('inprocessjobs', { keyPath: 'id', autoIncrement: true });
+  console.log("Started in IN PROCESS database.");
+};
+
 
 // add a new job record to the database and display it in the table
 document.getElementById('addJobButton').addEventListener('click', (event) => {
@@ -45,11 +62,12 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
         <td>${job.appliedDate}</td>
         <td>${job.location}</td>
         <td>${job.salary}</td>
-        <td><button>In Process</button></td>
+        <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
         <td><button>Archive</button></td>
-        <td><button class="delete-button" id="delete-button" data-id="${request.result}">Delete</button></td>
+        <td><button class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
       `;
       tbody.appendChild(tr);
+      window.location.reload();
     };
 
     addRequest.onerror = (event) => {
@@ -59,6 +77,7 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
 });
 
 // delete a job record from the database and the table
+// add event listener to "delete" button
 document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('delete-button')) {
     const db = request.result;
@@ -74,11 +93,52 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
       console.log("Deleted Successfully");
     };
 
-    request.onerror = (event) => {
+    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
       console.error('Error deleting job from database', event.target.error);
     };
   }
 });
+
+// add event listener to "inprocess" button
+document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
+  if (event.target.classList.contains('inProcess-button')) {
+    const db = request.result;
+    const jobtransaction = db.transaction('jobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
+    const jobStore = jobtransaction.objectStore('jobs');
+    const jobId = Number(event.target.getAttribute('data-id')); 
+     // fix: use Number() to convert data-id to a number
+
+    const getRequest = jobStore.get(jobId); // fix: use jobStore.get to get the job with the given ID
+    getRequest.onsuccess = (event) => {
+      const inprocessjob = event.target.result;
+
+      const inProcesstransaction = inProcessrequest.result.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of inProcessrequest.result.transaction
+      const inProcessStore = inProcesstransaction.objectStore('inprocessjobs');
+
+      const moveRequest = inProcessStore.add(inprocessjob);
+
+      moveRequest.onsuccess = () => {
+        console.log('Success adding inprocessjob to database');
+      };
+
+      moveRequest.onerror = (event) => {
+        console.error('Error adding job to database', event.target.error);
+      };
+    
+    }
+    const deleteRequest = jobStore.delete(jobId);
+    deleteRequest.onsuccess = () => {
+      event.target.parentNode.parentNode.remove();
+      console.log("Deleted Successfully");
+    };
+
+    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
+      console.error('Error deleting job from database', event.target.error);
+    };
+  }
+});
+
+
 
 // load the existing jobs from the database and display them in the table
 request.onsuccess = () => {
@@ -99,7 +159,7 @@ request.onsuccess = () => {
           <td>${job.appliedDate}</td>
           <td>${job.location}</td>
           <td>${job.salary}</td>
-          <td><button>In Process</button></td>
+          <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
           <td><button>Archive</button></td>
           <td><button class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
         `;
