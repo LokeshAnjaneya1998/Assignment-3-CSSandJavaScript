@@ -53,20 +53,7 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
     const addRequest = store.add(job);
 
     addRequest.onsuccess = () => {
-      const tbody = document.getElementById('wishlistDataTableBody');
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${job.Companyname}</td>
-        <td>${job.jobRole}</td>
-        <td>${job.jobType}</td>
-        <td>${job.appliedDate}</td>
-        <td>${job.location}</td>
-        <td>${job.salary}</td>
-        <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
-        <td><button>Archive</button></td>
-        <td><button class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
-      `;
-      tbody.appendChild(tr);
+      
       window.location.reload();
     };
 
@@ -160,8 +147,8 @@ request.onsuccess = () => {
           <td>${job.location}</td>
           <td>${job.salary}</td>
           <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
-          <td><button>Archive</button></td>
-          <td><button class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
+          <td><button href="#" title="Edit" class="edit-button" id="edit-button" >&#9998;</button></td>
+          <td><button href="#" title="Delete" class="delete-button" id="delete-button" data-id="${job.id}">&#128465;</button></td>
         `;
         tbody.appendChild(tr);
       }

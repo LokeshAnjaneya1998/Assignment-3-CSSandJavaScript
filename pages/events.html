@@ -32,7 +32,9 @@
           <th>Job Role</th>
           <th>Event</th>
           <th>Due Date</th>
+          <th></th>
           <th>Action</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -40,15 +42,16 @@
           <td><input type="text" id="events-company-name" name="events-company-name" required=""></td>
           <td><input type="text" id="events-job-role" name="events-job-role" required=""></td>
           <td>
-            <select id="eventDropDown6" name="eventDropDown6">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
+            <select id="eventDropDown" name="eventDropDown" required>
+              <option value="" disabled selected hidden >Select Event</option>
+              <option value="Technical-Interview">Technical Interview</option>
+              <option value="HR-Interview">HR Interview</option>
+              <option value="Coding-Test">Coding Test</option>
             </select>
           </td>
-          <td><input type="date" id="due-date" name="due-date6"></td>
-          <td><button type="submit">Add Event</button></td>
+          <td><input type="date" id="due-date" name="due-date" required></td>
+          <td></td>
+          <td><button type="submit" id="addEventButton">Add Event</button></td>
         </tr>
       </tbody>
       <thead>
@@ -57,94 +60,15 @@
           <th>Job Role</th>
           <th>Event</th>
           <th>Due Date</th>
+          <th></th>
           <th>Action</th>
+          <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Microsoft</td>
-          <td>Data Analyst</td>
-          <td>
-            <select id="eventDropDown1" name="eventDropDown1">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date1"></td>
-          <td><button id="delete-button">Delete Event</button></td>
-        </tr>
-        <tr>
-          <td>Amazon</td>
-          <td>Data Scientist</td>
-          <td>
-            <select id="eventDropDown2" name="eventDropDown2">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date2"></td>
-          <td><button id="delete-button">Delete Event</button></td>
-        </tr>
-        <tr>
-          <td>Apple</td>
-          <td>Big Data Developer</td>
-          <td>
-            <select id="eventDropDown3" name="eventDropDown3">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date3"></td>
-          <td><button id="delete-button">Delete Event</button></td>
-        </tr>
-        <tr>
-          <td>Amazon</td>
-          <td>Data Engineer</td>
-          <td>
-            <select id="eventDropDown4" name="eventDropDown4">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date4"></td>
-          <td><button id="delete-button">Delete Event</button></td>
-        </tr>
-        <tr>
-          <td>Delloite</td>
-          <td>Data Analyst</td>
-          <td>
-            <select id="eventDropDown5" name="eventDropDown5">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date5"></td>
-          <td><button id="delete-button">Delete Event</button></td>
-        </tr>
-        <tr>
-          <td>Accenture</td>
-          <td>Business Analyst</td>
-          <td>
-            <select id="eventDropDown6" name="eventDropDown6">
-              <option value="option1">Select Event</option>
-              <option value="option1">Technical Interview</option>
-              <option value="option2">HR Interview</option>
-              <option value="option3">Coding Test</option>
-            </select>
-          </td>
-          <td><input type="date" id="due-date" name="due-date6"></td>
-          <td><button id="delete-button">Delete Event</button></td>
-        </tr>
+      <tbody id="eventsDataTableBody">
+        <body>
+       <script type="" src="../JavaScript/events.js"></script>
+      </body>
       </tbody>
 
     </table>
