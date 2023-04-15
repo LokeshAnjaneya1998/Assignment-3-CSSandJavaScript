@@ -1,5 +1,6 @@
 const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
 const offersrequest = window.indexedDB.open("offersbullsData", 1);
+const eventrequest = window.indexedDB.open("eventsbullsData", 1);
 // create an object store to store job records
 
 inProcessrequest.onerror = function (event) {
@@ -32,7 +33,20 @@ offersrequest.onupgradeneeded = (event) => {
   console.log("Started in offers database.");
 };
 
+eventrequest.onerror = function (event) {
+  console.log("Error opening IN PROCESS database.");
+};
 
+eventrequest.onsuccess = function (event) {
+  const db = event.target.result;
+  console.log("Connected to the IN PROCESS database.");
+};
+
+eventrequest.onupgradeneeded = (event) => {
+  const db = event.target.result;
+  db.createObjectStore('eventjobs', { keyPath: 'id', autoIncrement: true });
+  console.log("Started in IN PROCESS database.");
+};
 
 
 // delete a job record from the database and the table
@@ -83,6 +97,52 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
       };
 
     }
+    const deleteRequest = jobStore.delete(jobId);
+    deleteRequest.onsuccess = () => {
+      event.target.parentNode.parentNode.remove();
+      console.log("Deleted Successfully");
+    };
+
+    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
+      console.error('Error deleting job from database', event.target.error);
+    };
+  }
+});
+
+document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
+
+  if (event.target.classList.contains('events-button')) {
+    const db = inProcessrequest.result;
+    const jobtransaction = db.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
+    const jobStore = jobtransaction.objectStore('inprocessjobs');
+    // fix: use Number() to convert data-id to a number
+    const jobId = Number(event.target.getAttribute('data-id'));
+    const getRequest = jobStore.get(jobId);
+    
+    getRequest.onsuccess = (event) => {
+      const eventsjob = event.target.result;
+      const eventscompanyname = eventsjob.Companyname;
+      const eventsjobRole = eventsjob.jobRole;
+      const eventType =  "";  
+      const dueDate = "";
+      const completeMark = "No";
+
+      const eventstransaction = eventrequest.result.transaction('eventjobs', 'readwrite'); // fix: use db.transaction instead of inProcessrequest.result.transaction
+      const eventsStore = eventstransaction.objectStore('eventjobs');
+
+      const job = { eventscompanyname, eventsjobRole, eventType, dueDate, completeMark };
+
+      const moveRequest = eventsStore.add(job);
+
+      moveRequest.onsuccess = () => {
+        console.log('Success adding eventsjob to database');
+      };
+
+      moveRequest.onerror = (event) => {
+        console.error('Error adding job to database', event.target.error);
+      };
+
+    };
     const deleteRequest = jobStore.delete(jobId);
     deleteRequest.onsuccess = () => {
       event.target.parentNode.parentNode.remove();

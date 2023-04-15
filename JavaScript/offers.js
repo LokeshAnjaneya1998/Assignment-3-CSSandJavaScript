@@ -41,6 +41,28 @@ document.getElementById('offersDataTableBody').addEventListener('click', (event)
   }
 });
 
+document.getElementById('offersDataTableBody').addEventListener('click', (event) => {
+  if (event.target.classList.contains('accept-button')) {
+    const db = offersrequest.result;
+    const transaction = db.transaction('offersjobs', 'readwrite');
+    const store = transaction.objectStore('offersjobs');
+
+    const id = Number(event.target.getAttribute('data-id'));
+
+    const getAllRequest = store.get(id);
+
+    console.log(getAllRequest);
+        getAllRequest.onsuccess = function (event) {
+            const data = event.target.result;
+            data.acceptMark = 'Yes';
+            store.put(data);
+            window.location.reload();
+        };
+        getAllRequest.onerror = (event) => {
+            console.error('Error adding job to database', event.target.error);
+        };
+  }
+});
 
 // load the existing jobs from the database and display them in the table
 offersrequest.onsuccess = () => {
@@ -61,9 +83,25 @@ offersrequest.onsuccess = () => {
           <td>${job.appliedDate}</td>
           <td>${job.location}</td>
           <td>${job.salary}</td>
-          <td><button class="accept-button" id="accept-button" data-id="${job.id}">Accept</button></td>
+          `;
+          if (job.acceptMark == 'Yes') {
+            tr.innerHTML += `
+            <td class="complete-text">Accepted!!</button></td>
+        `;
+            } else{
+              tr.innerHTML += `
+              <td><button class="accept-button" id="accept-button" data-id="${job.id}">Accept</button></td>
+            `;
+            }
+            if (job.acceptMark == 'Yes') {
+            tr.innerHTML += `
+          <td><button class="reject-button" id="delete-button" data-id="${job.id}">Delete</button></td>
+        `;
+            } else{
+              tr.innerHTML += `
           <td><button class="reject-button" id="delete-button" data-id="${job.id}">Reject</button></td>
         `;
+            }
         tbody.appendChild(tr);
       }
     };

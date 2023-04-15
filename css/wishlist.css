@@ -18,6 +18,9 @@ h1 {
   font-weight: 900;
 }
 
+.complete-text {
+  color: #006748;
+}
 /* Style the form by adding margin, border, padding, border-radius, and box-shadow */
 form {
   margin-top: 10px;

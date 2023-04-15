@@ -23,12 +23,13 @@ document.getElementById('addEventButton').addEventListener('click', (event) => {
     const eventsjobRole = document.getElementById('events-job-role').value;
     const eventType = document.getElementById('eventDropDown').value;
     const dueDate = document.getElementById('due-date').value;
+    const completeMark = "No";
 
     if (eventscompanyname && eventsjobRole && eventType && dueDate) {
         const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
         const store = transaction.objectStore('eventjobs');
 
-        const job = { eventscompanyname, eventsjobRole, eventType, dueDate };
+        const job = { eventscompanyname, eventsjobRole, eventType, dueDate, completeMark };
 
         const addRequest = store.add(job);
 
@@ -41,23 +42,27 @@ document.getElementById('addEventButton').addEventListener('click', (event) => {
         };
     }
 });
-let id1;
+
 document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
     if (event.target.classList.contains('update-event-button')) {
-        const eventscompanyname = document.getElementById('update-events-company-name').value;
-        const eventsjobRole = document.getElementById('update-events-job-role').value;
-        const eventType = document.getElementById('update-eventDropDown').value;
-        const dueDate = document.getElementById('update-due-date').value;
-        if (eventscompanyname && eventsjobRole && eventType && dueDate) {
+        const evecompanyname = document.getElementById('update-events-company-name').value;
+        const evejobRole = document.getElementById('update-events-job-role').value;
+        const eveType = document.getElementById('update-eventDropDown').value;
+        const evedueDate = document.getElementById('update-due-date').value;
+        if (evecompanyname && evejobRole && eveType && evedueDate) {
             const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
             const store = transaction.objectStore('eventjobs');
-            console.log('this is my id', id1)
-            store.delete(id1);
-            const job = { eventscompanyname, eventsjobRole, eventType, dueDate };
+            const id = Number(event.target.getAttribute('data-id'));
+            const getAllRequest = store.get(id);
+            console.log(getAllRequest);
+            getAllRequest.onsuccess = function (event) {
+                const data = event.target.result;
+                data.eventscompanyname = evecompanyname;
+                data.eventsjobRole = evejobRole;
+                data.eventType = eveType;
+                data.dueDate = evedueDate;
 
-            const addRequest = store.add(job);
-
-            addRequest.onsuccess = () => {
+                store.put(data);
                 window.location.reload();
             };
 
@@ -105,9 +110,27 @@ eventrequest.onsuccess = () => {
         <td>${job.eventsjobRole}</td>
         <td>${job.eventType}</td>
         <td>${job.dueDate}</td>
+        `;
+            if (job.completeMark == 'No') {
+                tr.innerHTML += `
         <td><button class="edit-event-button" id="edit-button" data-id="${job.id}">Edit Event</button></td>
+        `;
+            } else {
+                tr.innerHTML += `
+        <td class="complete-text">Marked as<br>Completed!!</button></td>
+        `;
+            }
+            if (job.completeMark == 'No') {
+                tr.innerHTML += `
+        <td><button class="complete-event-button" id="complete-button" data-id="${job.id}">completed</button></td>
+        `;
+            } else {
+                tr.innerHTML += `
+            <td><button class="unmark-event-button" id="delete-button" data-id="${job.id}">Undo Mark</button></td>
+            `;
+            }
+            tr.innerHTML += `
         <td><button class="delete-event-button" id="delete-button" data-id="${job.id}">Delete Event</button></td>
-        <td><button class="complete-event-button" id="complete-button">completed</button></td>
         `;
             tbody.appendChild(tr);
         }
@@ -120,11 +143,24 @@ eventrequest.onsuccess = () => {
 
 document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
     if (event.target.classList.contains('edit-event-button')) {
+        const buttons = document.querySelectorAll('.edit-event-button, .addJob-button');
+        let activeButton = null;
+        buttons.forEach(button => {
+            console.log('debug1');
+            // Disable all other buttons
+            buttons.forEach(btn => {
+                if (btn !== button) {
+                    console.log('debug3');
+                    btn.disabled = (btn !== activeButton);
+
+                }
+            });
+        });
+        const row = event.target.parentNode.parentNode;
         const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
         const store = transaction.objectStore('eventjobs');
-        id1 = Number(event.target.getAttribute('data-id'));
-        const getAllRequest = store.get(id1);
-        event.target.parentNode.parentNode.remove();
+        const id = Number(event.target.getAttribute('data-id'));
+        const getAllRequest = store.get(id);
         console.log(getAllRequest);
         getAllRequest.onsuccess = function (event) {
             const data = event.target.result;
@@ -133,22 +169,30 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
             const evejobrole = data.eventsjobRole;
             const eveevent = data.eventType;
             const eveduedate = data.dueDate;
-            const tbody = document.getElementById('eventsDataTableBody');
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td><input type="text" id="update-events-company-name" name="events-company-name" required="" value="${evcompname}"></td>
-                <td><input type="text" id="update-events-job-role" name="events-job-role" required="" value="${evejobrole}"></td>
-                <td><select id="update-eventDropDown" name="eventDropDown">
-                <option value="${eveevent}" disabled selected hidden>${eveevent}</option>
-                <option value="Technical-Interview">Technical Interview</option>
-                <option value="HR-Interview">HR Interview</option>
-                <option value="Coding-Test">Coding Test</option>
-              </select></td>
-                <td><input type="date" id="update-due-date" name="due-date" value="${eveduedate}" required></td>
-                <td><button class="update-event-button" id="edit-button" >Update</button></td>
-                <td><button class="delete-event-button" id="delete-button" data-id="${data.id}">Delete Event</button></td>
-                `;
-            tbody.appendChild(tr);
+            while (row && row.nodeName !== 'TR') {
+                row = row.parentNode;
+            }
+            if (!row) {
+                // The clicked element is not within a tr element
+                return;
+            }
+
+            row.innerHTML = `
+      <td><input type="text" id="update-events-company-name" name="events-company-name" placeholder="Enter Company Name" value="${evcompname}" required></td>
+      <td><input type="text" id="update-events-job-role" name="events-job-role" placeholder="Enter Job Role" value="${evejobrole}" required></td>
+      <td>
+        <select id="update-eventDropDown" name="eventDropDown" required>
+          <option value="${eveevent}" disabled selected hidden>${eveevent}</option>
+          <option value="Technical-Interview">Technical Interview</option>
+          <option value="HR-Interview">HR Interview</option>
+          <option value="Coding-Test">Coding Test</option>
+        </select>
+      </td>
+      <td><input type="date" id="update-due-date" name="due-date" value="${eveduedate}" required></td>
+      <td></td>
+      <td><button class="update-event-button" id="edit-button" data-id="${data.id}">Update</button></td>
+      <td><button class="cancel-event-button" id="delete-button" data-id="${data.id}">Cancel</button></td>
+    `;
         };
         getAllRequest.onerror = (event) => {
             console.error('Error getting jobs from database', event.target.error);
@@ -157,3 +201,49 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
     }
 });
 
+document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
+    if (event.target.classList.contains('cancel-event-button')) {
+        window.location.reload();
+    }
+});
+
+document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
+    if (event.target.classList.contains('complete-event-button')) {
+        const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
+        const store = transaction.objectStore('eventjobs');
+        const id = Number(event.target.getAttribute('data-id'));
+        console.log(id)
+        const getAllRequest = store.get(id);
+        console.log(getAllRequest);
+        getAllRequest.onsuccess = function (event) {
+            const data = event.target.result;
+            data.completeMark = 'Yes';
+            store.put(data);
+            window.location.reload();
+        };
+        getAllRequest.onerror = (event) => {
+            console.error('Error adding job to database', event.target.error);
+        };
+    }
+});
+
+document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
+    if (event.target.classList.contains('unmark-event-button')) {
+        const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
+        const store = transaction.objectStore('eventjobs');
+        const id = Number(event.target.getAttribute('data-id'));
+        console.log(id)
+        const getAllRequest = store.get(id);
+        event.target.parentNode.parentNode.remove();
+        console.log(getAllRequest);
+        getAllRequest.onsuccess = function (event) {
+            const data = event.target.result;
+            data.completeMark = 'No';
+            store.put(data);
+            window.location.reload();
+        };
+        getAllRequest.onerror = (event) => {
+            console.error('Error adding job to database', event.target.error);
+        };
+    }
+});
