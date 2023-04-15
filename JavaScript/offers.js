@@ -63,7 +63,6 @@ offersrequest.onsuccess = () => {
           <td>${job.salary}</td>
           <td><button class="accept-button" id="accept-button" data-id="${job.id}">Accept</button></td>
           <td><button class="reject-button" id="delete-button" data-id="${job.id}">Reject</button></td>
-          <td><button class="events-button" id="events-button" data-id="${job.id}">Events</button></td>
         `;
         tbody.appendChild(tr);
       }

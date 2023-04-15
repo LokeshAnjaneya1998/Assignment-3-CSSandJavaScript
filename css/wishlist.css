@@ -75,11 +75,6 @@ button {
   color: #c70000;
 }
 
-#edit-button {
-  background-color: white;
-  border: 3px solid #006748;
-  color: #006748;
-}
 
 /* Style the delete button hover*/
 #delete-button:hover {

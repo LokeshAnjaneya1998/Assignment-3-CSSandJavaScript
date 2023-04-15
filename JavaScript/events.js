@@ -1,4 +1,3 @@
-let id1;
 const eventrequest = window.indexedDB.open("eventsbullsData", 1);
 // create an object store to store job records
 
@@ -42,7 +41,7 @@ document.getElementById('addEventButton').addEventListener('click', (event) => {
         };
     }
 });
-
+let id1;
 document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
     if (event.target.classList.contains('update-event-button')) {
         const eventscompanyname = document.getElementById('update-events-company-name').value;
@@ -52,14 +51,14 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
         if (eventscompanyname && eventsjobRole && eventType && dueDate) {
             const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
             const store = transaction.objectStore('eventjobs');
-            console.log('this is my id',id1)
+            console.log('this is my id', id1)
             store.delete(id1);
             const job = { eventscompanyname, eventsjobRole, eventType, dueDate };
 
             const addRequest = store.add(job);
 
             addRequest.onsuccess = () => {
-               window.location.reload();
+                window.location.reload();
             };
 
             addRequest.onerror = (event) => {
@@ -121,22 +120,13 @@ eventrequest.onsuccess = () => {
 
 document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
     if (event.target.classList.contains('edit-event-button')) {
-
         const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
         const store = transaction.objectStore('eventjobs');
-
         id1 = Number(event.target.getAttribute('data-id'));
-
         const getAllRequest = store.get(id1);
-        
-            
-       
-    
         event.target.parentNode.parentNode.remove();
-
         console.log(getAllRequest);
         getAllRequest.onsuccess = function (event) {
-
             const data = event.target.result;
             console.log(data.eventscompanyname);
             const evcompname = data.eventscompanyname;
@@ -144,9 +134,7 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
             const eveevent = data.eventType;
             const eveduedate = data.dueDate;
             const tbody = document.getElementById('eventsDataTableBody');
-
             const tr = document.createElement('tr');
-
             tr.innerHTML = `
                 <td><input type="text" id="update-events-company-name" name="events-company-name" required="" value="${evcompname}"></td>
                 <td><input type="text" id="update-events-job-role" name="events-job-role" required="" value="${evejobrole}"></td>
@@ -157,11 +145,10 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
                 <option value="Coding-Test">Coding Test</option>
               </select></td>
                 <td><input type="date" id="update-due-date" name="due-date" value="${eveduedate}" required></td>
-                <td><button href="#" title="Edit" class="update-event-button" id="edit-button" >Update</button></td>
-                <td><button href="#" title="Delete" class="delete-event-button" id="delete-button" data-id="${data.id}">Delete Event</button></td>
+                <td><button class="update-event-button" id="edit-button" >Update</button></td>
+                <td><button class="delete-event-button" id="delete-button" data-id="${data.id}">Delete Event</button></td>
                 `;
             tbody.appendChild(tr);
-
         };
         getAllRequest.onerror = (event) => {
             console.error('Error getting jobs from database', event.target.error);
