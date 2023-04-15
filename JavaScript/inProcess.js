@@ -112,6 +112,7 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
 
   if (event.target.classList.contains('events-button')) {
+    alert("Job added to Events!!")
     const db = inProcessrequest.result;
     const jobtransaction = db.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
     const jobStore = jobtransaction.objectStore('inprocessjobs');
@@ -142,15 +143,6 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
         console.error('Error adding job to database', event.target.error);
       };
 
-    };
-    const deleteRequest = jobStore.delete(jobId);
-    deleteRequest.onsuccess = () => {
-      event.target.parentNode.parentNode.remove();
-      console.log("Deleted Successfully");
-    };
-
-    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
-      console.error('Error deleting job from database', event.target.error);
     };
   }
 });
