@@ -15,21 +15,23 @@
   <link rel="stylesheet" type="text/css" href="./css/signup.css">
 </head>
 <!-- Navigation bar with logo links to different pages -->
-<div class="navbar">
+<!--<div class="navbar">
   <b class="usflogo" alt="USF Logo">
     <img src="./img/fullusflogo.png">
   </b>
   <ul>
     <a class="logout-button" href="./pages/signUp.html">SignUp</a>
   </ul>
-</div>
+</div>-->
   <!--Defining fixed and responsive navbar-->
  
 <body>
 	<div class="wrapper">
 		<div class="left">
       <br>
+      <a id="bullpic" class="bullpic" href="index.html" alt="Bull Logo">
 			<img src="./img/homePageLogo.jpg">
+      </a>
 			<video src="./content/bullTrack.mp4" autoplay loop muted></video>
 		</div>
 		<div class="right">
@@ -40,6 +42,10 @@
 				<label for="password">Password</label>
 				<input type="password" id="password" name="password" required>
 				<button id="loginButton" type="submit">Login</button>
+        <br>
+        <hr>
+        <p>Don't have an accouunt? Create one!!</p>
+        <button type ="button" id="sugnUpButton">SignUp</button>
 			</form>
 		</div>
     <script type="" src="./JavaScript/login.js"></script>

@@ -50,3 +50,14 @@ document.getElementById('loginButton').addEventListener('click', (event) => {
 };
     }
   });
+  document.getElementById('sugnUpButton').addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = "./pages/signUp.html";
+  });
+
+  function preventBack(){
+    window.history.forward();
+  }
+  setTimeout("preventBack()", 0);
+  window.onunload=function(){null};
+  

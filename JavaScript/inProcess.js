@@ -178,3 +178,8 @@ inProcessrequest.onsuccess = () => {
     console.error('Error getting jobs from database', event.target.error);
   };
 };
+function preventBack(){
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload=function(){null};

@@ -44,18 +44,18 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
   const location = document.getElementById('wishlistLocation').value.trim();
   const salary = document.getElementById('wishlistSalary').value.trim();
   const acceptMark = "No";
-  if(Companyname == ""){alert('Please Enter Company Name')}
-  else if(jobRole == ""){alert('Please Enter Job Role')}
-  else if(jobType == ""){alert('Please Enter Job Type')}
-  else if(appliedDate == ""){alert('Please Enter Applied Date')}
-  else if(location == ""){alert('Please Enter Location')}
-  else if(salary  == ""){alert('Please Enter Salary')}
-  
+  if (Companyname == "") { alert('Please Enter Company Name') }
+  else if (jobRole == "") { alert('Please Enter Job Role') }
+  else if (jobType == "") { alert('Please Enter Job Type') }
+  else if (appliedDate == "") { alert('Please Enter Applied Date') }
+  else if (location == "") { alert('Please Enter Location') }
+  else if (salary == "") { alert('Please Enter Salary') }
+
   if (Companyname && jobRole && jobType && appliedDate && location && salary && acceptMark) {
     const transaction = request.result.transaction('jobs', 'readwrite');
     const store = transaction.objectStore('jobs');
 
-    const job = { Companyname, jobRole, jobType, appliedDate, location, salary, acceptMark};
+    const job = { Companyname, jobRole, jobType, appliedDate, location, salary, acceptMark };
 
     const addRequest = store.add(job);
 
@@ -172,14 +172,14 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     let activeButton = null;
     buttons.forEach(button => {
       console.log('debug1');
-        // Disable all other buttons
-        buttons.forEach(btn => {
-          if (btn !== button) {
-            console.log('debug3');
-            btn.disabled = (btn !== activeButton);
-            
-          }
-        });
+      // Disable all other buttons
+      buttons.forEach(btn => {
+        if (btn !== button) {
+          console.log('debug3');
+          btn.disabled = (btn !== activeButton);
+
+        }
+      });
     });
     const row = event.target.parentNode.parentNode;
     const transaction = request.result.transaction('jobs', 'readwrite');
@@ -188,9 +188,9 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     console.log('this is my id', id1)
     const getAllRequest = store.get(id1);
     console.log(getAllRequest);
-    
+
     getAllRequest.onsuccess = function (event) {
-      
+
       const data = event.target.result;
       console.log(data.Companyname);
       const wishCompanyname = data.Companyname;
@@ -201,14 +201,14 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
       const wishsalary = data.salary;
 
       while (row && row.nodeName !== 'TR') {
-                row = row.parentNode;
-            }
-            if (!row) {
-                // The clicked element is not within a tr element
-                return;
-            }
+        row = row.parentNode;
+      }
+      if (!row) {
+        // The clicked element is not within a tr element
+        return;
+      }
 
-            row.innerHTML = `
+      row.innerHTML = `
                 <td>
                 <input type="text" id="wishlistTableCompanyName" name="wishlistTableCompanyName" placeholder="Enter Company Name" required value="${wishCompanyname}">
                 </td>
@@ -231,12 +231,12 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
                 <td><button class="update-button" id="update-button" data-id="${data.id}">Update</button></td>
                 <td><button class="cancel-button" id="delete-button" data-id="${data.id}">cancel</button></td>
                 `;
-      
+
     };
     getAllRequest.onerror = (event) => {
       console.error('Error getting jobs from database', event.target.error);
     };
-    
+
   }
 });
 
@@ -248,13 +248,19 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     const wishappliedDate = document.getElementById('wishlistTableAppliedDate').value;
     const wishlocation = document.getElementById('wishlistTableLocation').value;
     const wishsalary = document.getElementById('wishlistTableSalary').value;
+    if (wishCompanyname == "") { alert('Please Enter Company Name') }
+    else if (wishjobRole == "") { alert('Please Enter Job Role') }
+    else if (wishjobType == "") { alert('Please Enter Job Type') }
+    else if (wishappliedDate == "") { alert('Please Enter Applied Date') }
+    else if (wishlocation == "") { alert('Please Enter Location') }
+    else if (wishsalary == "") { alert('Please Enter Salary') }
     if (wishCompanyname && wishjobRole && wishjobType && wishappliedDate && wishlocation && wishsalary) {
       const transaction = request.result.transaction('jobs', 'readwrite');
       const store = transaction.objectStore('jobs');
       const id = Number(event.target.getAttribute('data-id'));
       const getAllRequest = store.get(id);
       console.log(getAllRequest);
-       getAllRequest.onsuccess = function (event) {
+      getAllRequest.onsuccess = function (event) {
         const data = event.target.result;
         data.Companyname = wishCompanyname;
         data.jobRole = wishjobRole;
@@ -278,3 +284,10 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     window.location.reload();
   }
 });
+
+
+function preventBack() {
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };

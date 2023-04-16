@@ -56,3 +56,14 @@ document.getElementById('signupbutton').addEventListener('click', (event) => {
     };
     }
 });
+
+document.getElementById('loginButton').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = "../index.html";
+});
+
+function preventBack(){
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload=function(){null};

@@ -15,7 +15,7 @@ body {
 
 .left {
 	flex: 1;
-	background-color: #e6e6e6;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -34,7 +34,7 @@ body {
 
 .right {
 	flex: 1;
-	background-color: #e6e6e6;
+	background-color: white;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -51,10 +51,11 @@ body {
 .right form {
     margin-top: 10px;
     border: 1px solid #006748;
-    margin-bottom: 5px;
+    margin-bottom: 75px;
     padding: 25px;
     border-radius: 3px;
     box-shadow: 0px 2px 5px #006748;
+	background-color: #e6e6e6;
   }
 .right label {
 	display: block;
@@ -79,6 +80,10 @@ body {
     display: block;
     margin: 0 auto;
     width: 300px;
+}
+
+.right p {
+	text-align: center;
 }
 
 

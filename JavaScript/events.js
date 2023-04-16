@@ -19,12 +19,15 @@ eventrequest.onupgradeneeded = (event) => {
 document.getElementById('addEventButton').addEventListener('click', (event) => {
     event.preventDefault();
 
-    const eventscompanyname = document.getElementById('events-company-name').value;
-    const eventsjobRole = document.getElementById('events-job-role').value;
-    const eventType = document.getElementById('eventDropDown').value;
-    const dueDate = document.getElementById('due-date').value;
+    const eventscompanyname = document.getElementById('events-company-name').value.trim();
+    const eventsjobRole = document.getElementById('events-job-role').value.trim();
+    const eventType = document.getElementById('eventDropDown').value.trim();
+    const dueDate = document.getElementById('due-date').value.trim();
     const completeMark = "No";
-
+    if (eventscompanyname == "") { alert('Please Enter Company Name') }
+    else if (eventsjobRole == "") { alert('Please Enter Job Role') }
+    else if (eventType == "") { alert('Please select Event Type') }
+    else if (dueDate == "") { alert('Please Enter Due Date') }
     if (eventscompanyname && eventsjobRole && eventType && dueDate) {
         const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
         const store = transaction.objectStore('eventjobs');
@@ -45,10 +48,14 @@ document.getElementById('addEventButton').addEventListener('click', (event) => {
 
 document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
     if (event.target.classList.contains('update-event-button')) {
-        const evecompanyname = document.getElementById('update-events-company-name').value;
-        const evejobRole = document.getElementById('update-events-job-role').value;
-        const eveType = document.getElementById('update-eventDropDown').value;
-        const evedueDate = document.getElementById('update-due-date').value;
+        const evecompanyname = document.getElementById('update-events-company-name').value.trim();
+        const evejobRole = document.getElementById('update-events-job-role').value.trim();
+        const eveType = document.getElementById('update-eventDropDown').value.trim();
+        const evedueDate = document.getElementById('update-due-date').value.trim();
+        if (evecompanyname == "") { alert('Please Enter Company Name') }
+        else if (evejobRole == "") { alert('Please Enter Job Role') }
+        else if (eveType == "") { alert('Please select Event Type') }
+        else if (evedueDate == "") { alert('Please Enter Due Date') }
         if (evecompanyname && evejobRole && eveType && evedueDate) {
             const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
             const store = transaction.objectStore('eventjobs');
@@ -247,3 +254,8 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
         };
     }
 });
+function preventBack() {
+    window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
