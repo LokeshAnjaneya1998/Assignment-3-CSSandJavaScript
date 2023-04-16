@@ -37,14 +37,20 @@ inProcessrequest.onupgradeneeded = (event) => {
 document.getElementById('addJobButton').addEventListener('click', (event) => {
   event.preventDefault();
 
-  const Companyname = document.getElementById('wishlistCompanyName').value;
-  const jobRole = document.getElementById('wishlistJobRole').value;
-  const jobType = document.getElementById('wishlistJobType').value;
-  const appliedDate = document.getElementById('wishlistAppliedDate').value;
-  const location = document.getElementById('wishlistLocation').value;
-  const salary = document.getElementById('wishlistSalary').value;
+  const Companyname = document.getElementById('wishlistCompanyName').value.trim();
+  const jobRole = document.getElementById('wishlistJobRole').value.trim();
+  const jobType = document.getElementById('wishlistJobType').value.trim();
+  const appliedDate = document.getElementById('wishlistAppliedDate').value.trim();
+  const location = document.getElementById('wishlistLocation').value.trim();
+  const salary = document.getElementById('wishlistSalary').value.trim();
   const acceptMark = "No";
-
+  if(Companyname == ""){alert('Please Enter Company Name')}
+  else if(jobRole == ""){alert('Please Enter Job Role')}
+  else if(jobType == ""){alert('Please Enter Job Type')}
+  else if(appliedDate == ""){alert('Please Enter Applied Date')}
+  else if(location == ""){alert('Please Enter Location')}
+  else if(salary  == ""){alert('Please Enter Salary')}
+  
   if (Companyname && jobRole && jobType && appliedDate && location && salary && acceptMark) {
     const transaction = request.result.transaction('jobs', 'readwrite');
     const store = transaction.objectStore('jobs');
