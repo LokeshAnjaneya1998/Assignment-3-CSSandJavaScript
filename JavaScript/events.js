@@ -1,5 +1,4 @@
 const eventrequest = window.indexedDB.open("eventsbullsData", 1);
-// create an object store to store job records
 
 eventrequest.onerror = function (event) {
     console.log("Error opening IN PROCESS database.");
@@ -95,7 +94,7 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
             console.log("Deleted Successfully");
         };
 
-        deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
+        deleteRequest.onerror = (event) => {
             console.error('Error deleting job from database', event.target.error);
         };
     }
@@ -154,7 +153,6 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
         let activeButton = null;
         buttons.forEach(button => {
             console.log('debug1');
-            // Disable all other buttons
             buttons.forEach(btn => {
                 if (btn !== button) {
                     console.log('debug3');
@@ -180,7 +178,6 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
                 row = row.parentNode;
             }
             if (!row) {
-                // The clicked element is not within a tr element
                 return;
             }
 

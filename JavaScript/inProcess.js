@@ -1,7 +1,7 @@
 const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
 const offersrequest = window.indexedDB.open("offersbullsData", 1);
 const eventrequest = window.indexedDB.open("eventsbullsData", 1);
-// create an object store to store job records
+
 
 inProcessrequest.onerror = function (event) {
   console.log("Error opening IN PROCESS database.");
@@ -49,7 +49,7 @@ eventrequest.onupgradeneeded = (event) => {
 };
 
 
-// delete a job record from the database and the table
+
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('rejected-button')) {
     const db = inProcessrequest.result;
@@ -75,15 +75,15 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
 
   if (event.target.classList.contains('offer-button')) {
     const db = inProcessrequest.result;
-    const jobtransaction = db.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
+    const jobtransaction = db.transaction('inprocessjobs', 'readwrite');
     const jobStore = jobtransaction.objectStore('inprocessjobs');
-    // fix: use Number() to convert data-id to a number
+
     const jobId = Number(event.target.getAttribute('data-id'));
-    const getRequest = jobStore.get(jobId); // fix: use jobStore.get to get the job with the given ID
+    const getRequest = jobStore.get(jobId);
     getRequest.onsuccess = (event) => {
       const offersjob = event.target.result;
 
-      const offerstransaction = offersrequest.result.transaction('offersjobs', 'readwrite'); // fix: use db.transaction instead of inProcessrequest.result.transaction
+      const offerstransaction = offersrequest.result.transaction('offersjobs', 'readwrite');
       const offersStore = offerstransaction.objectStore('offersjobs');
 
       const moveRequest = offersStore.add(offersjob);
@@ -103,7 +103,7 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
       console.log("Deleted Successfully");
     };
 
-    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
+    deleteRequest.onerror = (event) => {
       console.error('Error deleting job from database', event.target.error);
     };
   }
@@ -114,21 +114,20 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
   if (event.target.classList.contains('events-button')) {
     alert("Job added to Events!!")
     const db = inProcessrequest.result;
-    const jobtransaction = db.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
+    const jobtransaction = db.transaction('inprocessjobs', 'readwrite');
     const jobStore = jobtransaction.objectStore('inprocessjobs');
-    // fix: use Number() to convert data-id to a number
     const jobId = Number(event.target.getAttribute('data-id'));
     const getRequest = jobStore.get(jobId);
-    
+
     getRequest.onsuccess = (event) => {
       const eventsjob = event.target.result;
       const eventscompanyname = eventsjob.Companyname;
       const eventsjobRole = eventsjob.jobRole;
-      const eventType =  "";  
+      const eventType = "";
       const dueDate = "";
       const completeMark = "No";
 
-      const eventstransaction = eventrequest.result.transaction('eventjobs', 'readwrite'); // fix: use db.transaction instead of inProcessrequest.result.transaction
+      const eventstransaction = eventrequest.result.transaction('eventjobs', 'readwrite');
       const eventsStore = eventstransaction.objectStore('eventjobs');
 
       const job = { eventscompanyname, eventsjobRole, eventType, dueDate, completeMark };
@@ -147,7 +146,7 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
   }
 });
 
-// load the existing jobs from the database and display them in the table
+
 inProcessrequest.onsuccess = () => {
   const transaction = inProcessrequest.result.transaction('inprocessjobs', 'readonly');
   const store = transaction.objectStore('inprocessjobs');
@@ -178,8 +177,8 @@ inProcessrequest.onsuccess = () => {
     console.error('Error getting jobs from database', event.target.error);
   };
 };
-function preventBack(){
+function preventBack() {
   window.history.forward();
 }
 setTimeout("preventBack()", 0);
-window.onunload=function(){null};
+window.onunload = function () { null };

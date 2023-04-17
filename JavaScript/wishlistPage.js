@@ -1,7 +1,5 @@
-// open a connection to the IndexedDB database
 const request = window.indexedDB.open("wishlistbullsData", 1);
 const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
-// create an object store to store job records
 request.onerror = function (event) {
   console.log("Error opening JOBS database.");
 };
@@ -32,8 +30,6 @@ inProcessrequest.onupgradeneeded = (event) => {
   console.log("Started in IN PROCESS database.");
 };
 
-
-// add a new job record to the database and display it in the table
 document.getElementById('addJobButton').addEventListener('click', (event) => {
   event.preventDefault();
 
@@ -70,8 +66,6 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
   }
 });
 
-// delete a job record from the database and the table
-// add event listener to "delete" button
 document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('delete-button')) {
     const db = request.result;
@@ -87,26 +81,25 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
       console.log("Deleted Successfully");
     };
 
-    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
+    deleteRequest.onerror = (event) => {
       console.error('Error deleting job from database', event.target.error);
     };
   }
 });
 
-// add event listener to "inprocess" button
+
 document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('inProcess-button')) {
     const db = request.result;
-    const jobtransaction = db.transaction('jobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
+    const jobtransaction = db.transaction('jobs', 'readwrite');
     const jobStore = jobtransaction.objectStore('jobs');
     const jobId = Number(event.target.getAttribute('data-id'));
-    // fix: use Number() to convert data-id to a number
 
-    const getRequest = jobStore.get(jobId); // fix: use jobStore.get to get the job with the given ID
+    const getRequest = jobStore.get(jobId);
     getRequest.onsuccess = (event) => {
       const inprocessjob = event.target.result;
 
-      const inProcesstransaction = inProcessrequest.result.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of inProcessrequest.result.transaction
+      const inProcesstransaction = inProcessrequest.result.transaction('inprocessjobs', 'readwrite');
       const inProcessStore = inProcesstransaction.objectStore('inprocessjobs');
 
       const moveRequest = inProcessStore.add(inprocessjob);
@@ -126,15 +119,12 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
       console.log("Deleted Successfully");
     };
 
-    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
+    deleteRequest.onerror = (event) => {
       console.error('Error deleting job from database', event.target.error);
     };
   }
 });
 
-
-
-// load the existing jobs from the database and display them in the table
 request.onsuccess = () => {
   const transaction = request.result.transaction('jobs', 'readonly');
   const store = transaction.objectStore('jobs');
@@ -172,7 +162,6 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     let activeButton = null;
     buttons.forEach(button => {
       console.log('debug1');
-      // Disable all other buttons
       buttons.forEach(btn => {
         if (btn !== button) {
           console.log('debug3');
@@ -204,7 +193,6 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
         row = row.parentNode;
       }
       if (!row) {
-        // The clicked element is not within a tr element
         return;
       }
 

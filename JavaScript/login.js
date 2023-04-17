@@ -1,5 +1,4 @@
 const signuprequest = window.indexedDB.open("signupbullsData", 1);
-// create an object store to store job records
 signuprequest.onerror = function (event) {
   console.log("Error opening signup database.");
 };
@@ -18,46 +17,45 @@ signuprequest.onupgradeneeded = (event) => {
 
 
 document.getElementById('loginButton').addEventListener('click', (event) => {
-    event.preventDefault();
-  
-    const loginusername = document.getElementById('username').value.trim();
-    const loginpassword = document.getElementById('password').value.trim();
-    if(loginusername == ""){alert('Please Enter your User Name');}
-    else if(loginpassword == ""){alert('Please your password!!');}
-    
-    if (loginusername && loginpassword) {
-        const transaction = signuprequest.result.transaction('signupids', 'readonly');
-        const store = transaction.objectStore('signupids');
-        const getAllRequest = store.getAll();
+  event.preventDefault();
 
-  getAllRequest.onsuccess = () => {
-    let verification = "Fail";
-    const jobs = getAllRequest.result;
-    for (const job of jobs) {
-        if (job.username == loginusername && job.password == loginpassword){
-            console.log(job.id);
-            verification = "Pass";
-           window.location.href = "./pages/wishList.html";
-          
+  const loginusername = document.getElementById('username').value.trim();
+  const loginpassword = document.getElementById('password').value.trim();
+  if (loginusername == "") { alert('Please Enter your User Name'); }
+  else if (loginpassword == "") { alert('Please your password!!'); }
+
+  if (loginusername && loginpassword) {
+    const transaction = signuprequest.result.transaction('signupids', 'readonly');
+    const store = transaction.objectStore('signupids');
+    const getAllRequest = store.getAll();
+
+    getAllRequest.onsuccess = () => {
+      let verification = "Fail";
+      const jobs = getAllRequest.result;
+      for (const job of jobs) {
+        if (job.username == loginusername && job.password == loginpassword) {
+          console.log(job.id);
+          verification = "Pass";
+          window.location.href = "./pages/wishList.html";
+
         }
 
-    }
-    console.log(verification)
-    if (verification == "Fail"){
+      }
+      console.log(verification)
+      if (verification == "Fail") {
         alert('Username or Password is wrong!! Please try again.');
-    }
+      }
 
-};
-    }
-  });
-  document.getElementById('sugnUpButton').addEventListener('click', (event) => {
-    event.preventDefault();
-    window.location.href = "./pages/signUp.html";
-  });
-
-  function preventBack(){
-    window.history.forward();
+    };
   }
-  setTimeout("preventBack()", 0);
-  window.onunload=function(){null};
-  
+});
+document.getElementById('sugnUpButton').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = "./pages/signUp.html";
+});
+
+function preventBack() {
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
