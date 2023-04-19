@@ -48,6 +48,17 @@ eventrequest.onupgradeneeded = (event) => {
   console.log("Started in IN PROCESS database.");
 };
 
+var currentTimestamp = new Date();
+
+var hours = currentTimestamp.getHours().toString().padStart(2, '0');
+var minutes = currentTimestamp.getMinutes().toString().padStart(2, '0');
+var month = (currentTimestamp.getMonth() + 1).toString().padStart(2, '0');
+var day = currentTimestamp.getDate().toString().padStart(2, '0');
+var year = currentTimestamp.getFullYear();
+
+var formattedTimestamp = hours + ':' + minutes + ', ' + month + '/' + day + '/' + year;
+
+console.log(formattedTimestamp);
 
 
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
@@ -112,7 +123,6 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
 
   if (event.target.classList.contains('events-button')) {
-    alert("Job added to Events!!")
     const db = inProcessrequest.result;
     const jobtransaction = db.transaction('inprocessjobs', 'readwrite');
     const jobStore = jobtransaction.objectStore('inprocessjobs');
@@ -129,19 +139,36 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
 
       const eventstransaction = eventrequest.result.transaction('eventjobs', 'readwrite');
       const eventsStore = eventstransaction.objectStore('eventjobs');
+      const getAllRequest = eventsStore.getAll();
+      getAllRequest.onsuccess = () => {
+        let eventExist = 'False';
+        const resultRequest = getAllRequest.result;
+        console.log(resultRequest);
+        for (event of resultRequest) {
+          console.log('debug', eventscompanyname);
+          console.log('debug', eventsjobRole);
+          console.log(event.eventscompanyname);
+          console.log(event.eventsjobRole);
+          if (event.eventscompanyname.toLowerCase() == eventscompanyname.toLowerCase() && event.eventsjobRole.toLowerCase() == eventsjobRole.toLowerCase()) {
+            eventExist = 'True'
+          }
+        }
+        if (eventExist == 'False') {
+          const job = { eventscompanyname, eventsjobRole, eventType, dueDate, completeMark };
 
-      const job = { eventscompanyname, eventsjobRole, eventType, dueDate, completeMark };
+          const moveRequest = eventsStore.add(job);
+          moveRequest.onsuccess = () => {
+            console.log('Success adding eventsjob to database');
+            alert("Job added to Events!!");
+          };
 
-      const moveRequest = eventsStore.add(job);
-
-      moveRequest.onsuccess = () => {
-        console.log('Success adding eventsjob to database');
+          moveRequest.onerror = (event) => {
+            console.error('Error adding job to database', event.target.error);
+          };
+        } else {
+          alert('A job with same details exist in events');
+        }
       };
-
-      moveRequest.onerror = (event) => {
-        console.error('Error adding job to database', event.target.error);
-      };
-
     };
   }
 });

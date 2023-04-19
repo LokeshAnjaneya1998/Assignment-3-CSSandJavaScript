@@ -47,7 +47,15 @@
       <input type="text" id="wishlistJobRole" name="wishlistJobRole" placeholder="Enter Job Role" required>
       <br>
       <label for="wishlistJobType">Job Type:</label>
-      <input type="text" id="wishlistJobType" name="wishlistJobType" placeholder="Enter Job Type" required>
+      <select type="text" class="jobTypeOption" id="wishlistJobType" name="wishlistJobType" placeholder="Enter Job Type" required>
+        <option value="" disabled selected hidden >Select Job Type</option>
+        <option value="Full-Time">Full-Time</option>
+        <option value="Full-Time (Remote)">Full-Time (Remote)</option>
+        <option value="Full-Time (Hybrid)">Full-Time (Hybrid)</option>
+        <option value="Contract">Contract</option>
+        <option value="Part-Time">Part-Time</option>
+        <option value="Internship">Internship</option>
+      </select>
       <br>
       <label for="wishlistAppliedDate">Applied Date:</label>
       <input type="date" id="wishlistAppliedDate" name="wishlistAppliedDate" placeholder="Enter Applied Dtae" required>

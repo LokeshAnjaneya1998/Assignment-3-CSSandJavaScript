@@ -19,6 +19,7 @@ h1 {
 }
 
 .complete-text {
+  font-weight: bolder;
   color: #006748;
 }
 /* Style the form by adding margin, border, padding, border-radius, and box-shadow */
@@ -43,12 +44,14 @@ label {
 
 /* Style the input fields by setting the margin, padding, border-radius, border, and background color */
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+.jobTypeOption {
   margin-bottom: 5px;
   padding: 5px;
   border-radius: 3px;
   border: 1px solid black;
   background-color: white;
+  font-size: small;
 }
 
 /* Style the due date field */

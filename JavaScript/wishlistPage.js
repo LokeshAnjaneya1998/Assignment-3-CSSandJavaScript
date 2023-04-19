@@ -40,6 +40,7 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
   const location = document.getElementById('wishlistLocation').value.trim();
   const salary = document.getElementById('wishlistSalary').value.trim();
   const acceptMark = "No";
+  const status = "Not yet responded"
   if (Companyname == "") { alert('Please Enter Company Name') }
   else if (jobRole == "") { alert('Please Enter Job Role') }
   else if (jobType == "") { alert('Please Enter Job Type') }
@@ -47,11 +48,11 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
   else if (location == "") { alert('Please Enter Location') }
   else if (salary == "") { alert('Please Enter Salary') }
 
-  if (Companyname && jobRole && jobType && appliedDate && location && salary && acceptMark) {
+  if (Companyname && jobRole && jobType && appliedDate && location && salary) {
     const transaction = request.result.transaction('jobs', 'readwrite');
     const store = transaction.objectStore('jobs');
 
-    const job = { Companyname, jobRole, jobType, appliedDate, location, salary, acceptMark };
+    const job = { Companyname, jobRole, jobType, appliedDate, location, salary, acceptMark, status };
 
     const addRequest = store.add(job);
 
@@ -204,7 +205,15 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
                 <input type="text" id="wishlistTableJobRole" name="wishlistTableJobRole" placeholder="Enter Job Role" required value="${wishjobRole}">
                 </td>
                 <td>
-                <input type="text" id="wishlistTableJobType" name="wishlistTableJobType" placeholder="Enter Job Type" required value="${wishjobType}">
+                <select type="text" class="jobTypeOption" id="wishlistJobTypeDD" name="wishlistJobTypeDD" placeholder="Enter Job Type" required>
+                  <option value="${wishjobType}" disabled selected hidden >${wishjobType}</option>
+                  <option value="Full-Time">Full-Time</option>
+                  <option value="Full-Time (Remote)">Full-Time (Remote)</option>
+                  <option value="Full-Time (Hybrid)">Full-Time (Hybrid)</option>
+                  <option value="Contract">Contract</option>
+                  <option value="Part-Time">Part-Time</option>
+                  <option value="Internship">Internship</option>
+                </select>
                 </td>
                 <td>
                 <input type="date" id="wishlistTableAppliedDate" name="wishlistTableAppliedDate" placeholder="Enter Applied Dtae" required value="${wishappliedDate}">
@@ -232,7 +241,7 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
   if (event.target.classList.contains('update-button')) {
     const wishCompanyname = document.getElementById('wishlistTableCompanyName').value;
     const wishjobRole = document.getElementById('wishlistTableJobRole').value;
-    const wishjobType = document.getElementById('wishlistTableJobType').value;
+    const wishjobType = document.getElementById('wishlistJobTypeDD').value;
     const wishappliedDate = document.getElementById('wishlistTableAppliedDate').value;
     const wishlocation = document.getElementById('wishlistTableLocation').value;
     const wishsalary = document.getElementById('wishlistTableSalary').value;
