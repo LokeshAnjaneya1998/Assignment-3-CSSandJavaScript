@@ -39,9 +39,9 @@ var month = (currentTimestamp.getMonth() + 1).toString().padStart(2, '0');
 var day = currentTimestamp.getDate().toString().padStart(2, '0');
 var year = currentTimestamp.getFullYear();
 
-var formattedTimestamp = month + '/' + day + '/' + year;
+var todayDate = month + '/' + day + '/' + year;
 
-console.log(formattedTimestamp);
+console.log(todayDate);
 
 document.getElementById('offersDataTableBody').addEventListener('click', (event) => {
   const db = offersrequest.result;
