@@ -18,7 +18,6 @@ signuprequest.onupgradeneeded = (event) => {
 
 document.getElementById('loginButton').addEventListener('click', (event) => {
   event.preventDefault();
-
   const loginusername = document.getElementById('username').value.trim();
   const loginpassword = document.getElementById('password').value.trim();
   if (loginusername == "") { alert('Please Enter your User Name'); }
@@ -44,6 +43,9 @@ document.getElementById('loginButton').addEventListener('click', (event) => {
       console.log(verification)
       if (verification == "Fail") {
         alert('Username or Password is wrong!! Please try again.');
+      } else {
+        var inputValue = document.getElementById('username').value;
+    localStorage.setItem('usernameVerify', inputValue);
       }
 
     };

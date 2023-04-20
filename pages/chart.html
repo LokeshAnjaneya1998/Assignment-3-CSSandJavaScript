@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <style>
         h2 {
       font-family: Arial, sans-serif;
@@ -12,8 +13,27 @@
     </style>
 </head>
 <body>
+  <div class="navbar">
+    <b>
+      <img src="../img/fullusflogo.png" style="width:240px;height:48px;">
+    </b>
+    <ul>
+      <!--<a href="../index.html">Home</a>-->
+      <a href="wishList.html">Wish List</a>
+      <a href="inProcess.html">In Process</a>
+      <a href="events.html">Events</a>
+      <a href="offers.html">Offers</a>
+      <a href="aboutUs.html">About Us</a>
+      <a href="chart.html">Chart</a>
+      <a class="notification" id="notification" href="notifications.html">&#128276;!</a>
+      <a class="profile" id="profile" href="profile.html">&#x1F464;</a>
+      <a class="logout-button" href="../index.html">LogOut</a>
+    </ul>
+  </div>
+    <br><br><br>
+<body>
     <h2>Visualizing Job Application Data FY 2022</h2>
-    <canvas id="job-applications-chart" width="400" height="190"></canvas>
+    <canvas id="job-applications-chart" width="400" height="150"></canvas>
     
     <script>
         // Data
