@@ -24,12 +24,13 @@ body {
 }
 
 .left img {
-	max-width: 90%;
+	max-width: 50%;
 	margin-bottom: 30px;
+	margin: 0 20%;
 }
 
 .left video {
-	max-width: 100%;
+	width: 100%;
 }
 
 .right {

@@ -73,7 +73,7 @@ document.getElementById('offersDataTableBody').addEventListener('click', (event)
     getAllRequest.onsuccess = function (event) {
       const data = event.target.result;
       data.acceptMark = 'Yes';
-      data.status = 'Accepted on '+formattedTimestamp;
+      data.status = 'Accepted on '+todayDate;
       store.put(data);
       window.location.reload();
     };
