@@ -108,26 +108,14 @@ video {
   margin-right: 10px;
 }
 
-.navbar .notification {
-  position: fixed;
-  color: #ffffff;
-  top: 15px;
-  right: 0;
-  margin-right: 180px;
-}
+
 
 .navbar .notification:hover {
   background-color:#006748;
   color: red;
 }
 
-.navbar .profile {
-  position: fixed;
-  color: #ffffff;
-  top: 15px;
-  right: 0;
-  margin-right: 120px;
-}
+
 
 .navbar .profile:hover {
   background-color:#006748;
