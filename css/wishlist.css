@@ -22,6 +22,17 @@ h1 {
   font-weight: bolder;
   color: #006748;
 }
+
+.alert-text {
+  font-weight: bolder;
+  color: red;
+}
+
+.reminder-text {
+  font-weight: bolder;
+  color: orange;
+}
+
 /* Style the form by adding margin, border, padding, border-radius, and box-shadow */
 form {
   margin-top: 10px;

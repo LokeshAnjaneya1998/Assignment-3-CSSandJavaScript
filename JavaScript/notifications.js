@@ -24,25 +24,26 @@ var month = (currentTimestamp.getMonth() + 1).toString().padStart(2, '0');
 var day = currentTimestamp.getDate().toString().padStart(2, '0');
 var year = currentTimestamp.getFullYear();
 
-var todayDate = month + '/' + day + '/' + year;
-let intDay = parseInt(day)-1
+const todayDate = year + '-' + month + '-' + day;
+let intDay = parseInt(day)+1
 var tday = intDay.toString()
-var tomorrowDate = month + '/' + tday + '/' + year;
+const tomorrowDate = year + '-' + month + '-' + tday;
 
 console.log(todayDate);
+console.log(tomorrowDate);
+
 
 eventrequest.onsuccess = () => {
-    console.log('debug1');
     const transaction = eventrequest.result.transaction('eventjobs', 'readonly');
     const store = transaction.objectStore('eventjobs');
     const getAllRequest = store.getAll();
 
     getAllRequest.onsuccess = () => {
         const jobs = getAllRequest.result.reverse();
-        const tbody = document.getElementById('eventsDataTableBody');
-
+        const tbody = document.getElementById('notificationsDataTableBody');
         for (const job of jobs) {
             const tr = document.createElement('tr');
+            if (job.dueDate == todayDate || job.dueDate == tomorrowDate) {
             tr.innerHTML = `
         <td>${job.eventscompanyname}</td>
         <td>${job.eventsjobRole}</td>
@@ -51,19 +52,22 @@ eventrequest.onsuccess = () => {
         `;
             if (job.dueDate == todayDate) {
                 tr.innerHTML += `
-        <td>Alert!! You have this event due today</td>
+        <td class="alert-text">Alert!! You have this event due today</td>
         `;
-        if (job.dueDate == todayDate) {
+            }
+        if (job.dueDate == tomorrowDate) {
             tr.innerHTML += `
-        <td>Reminder!! You have this event due tomorrow</td>
+        <td class="reminder-text">Reminder!! You have this event due tomorrow</td>
         `;
         }
             }
+        
             tbody.appendChild(tr);
-        }
+        } 
     };
-
     getAllRequest.onerror = (event) => {
         console.error('Error getting jobs from database', event.target.error);
     };
 };
+
+

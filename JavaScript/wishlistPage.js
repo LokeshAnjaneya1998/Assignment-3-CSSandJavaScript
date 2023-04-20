@@ -282,7 +282,6 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
   }
 });
 
-
 function preventBack() {
   window.history.forward();
 }

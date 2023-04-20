@@ -15,12 +15,10 @@ eventrequest.onupgradeneeded = (event) => {
     console.log("Started in IN PROCESS database.");
 };
 
-document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
+document.getElementById('addEventButton').addEventListener('click', (event) => {
     event.preventDefault();
     const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
     const store = transaction.objectStore('eventjobs');
-
-    if (event.target.classList.contains('addJob-button')) {
     const eventscompanyname = document.getElementById('events-company-name').value.trim();
     const eventsjobRole = document.getElementById('events-job-role').value.trim();
     const eventType = document.getElementById('eventDropDown').value.trim();
@@ -43,8 +41,12 @@ document.getElementById('eventsDataTableBody').addEventListener('click', (event)
             console.error('Error adding job to database', event.target.error);
         };
     }
-}
 
+});
+document.getElementById('eventsDataTableBody').addEventListener('click', (event) => {
+
+    const transaction = eventrequest.result.transaction('eventjobs', 'readwrite');
+    const store = transaction.objectStore('eventjobs');
     if (event.target.classList.contains('update-event-button')) {
         const evecompanyname = document.getElementById('update-events-company-name').value.trim();
         const evejobRole = document.getElementById('update-events-job-role').value.trim();
