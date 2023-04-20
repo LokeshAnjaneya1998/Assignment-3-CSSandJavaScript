@@ -2,41 +2,24 @@
 	box-sizing: border-box;
 }
 
-body {
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
-}
-
-.wrapper {
+.table-container {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	height: 100vh;
 }
 
-.left {
-	flex: 0;
+.left-table {
+	flex: 1;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 0px;
+	padding:80px;
 }
 
-.left img {
-	max-width: 50%;
-	margin-bottom: 30px;
-	margin: 0 20%;
-}
-
-.left video {
-	width:900px;
-	
-	
-
-}
-
-.right {
+.right-table {
 	flex: 1;
 	background-color: white;
 	display: flex;
@@ -44,75 +27,88 @@ body {
 	align-items: center;
 	justify-content: center;
 	padding: 50px;
+	
 }
 
-.right h2 {
+/* Adjust image size */
+img {
+	max-width: 50%;
+	margin: 0 25%;
+}
+
+video {
+	width: 800px;
+}
+
+.right-table h2 {
 	margin-top: 0;
-    text-align: center;
-    color: #006748;
+	text-align: center;
+	color: #006748;
 }
 
-.right form {
-    margin-top: 10px;
-    border: 1px solid #006748;
-    margin-bottom: 75px;
-    padding: 25px;
-    border-radius: 3px;
-    box-shadow: 0px 2px 5px #006748;
+.right-table form {
+	margin-top: 70px;
+	border: 1px solid #006748;
+	margin-bottom: 75px;
+	padding: 25px;
+	border-radius: 3px;
+	box-shadow: 0px 2px 5px #006748;
 	background-color: #e6e6e6;
-  }
-.right label {
+}
+
+.right-table label {
 	display: block;
 	margin-bottom: 10px;
 }
 
-.right input {
+.right-table input {
 	padding: 10px;
 	margin-bottom: 20px;
 	width: 300px;
 	border-radius: 5px;
-    border: 1px solid #006748;
+	border: 1px solid #006748;
 }
 
-.right button {
+.right-table button {
 	background-color: #006748;
 	color: white;
 	padding: 10px 20px;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-    display: block;
-    margin: 0 auto;
-    width: 300px;
+	display: block;
+	margin: 0 auto;
+	width: 300px;
 }
 
-.right p {
+.right-table p {
 	text-align: center;
 }
 
 
-.signUpContent form .signUpDetails{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 20px 0 12px 0;
+.signUpContent form .signUpDetails {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 20px 0 12px 0;
 }
-form .signUpDetails .inputBox{
-  margin-bottom: 15px;
-  width: calc(100% / 2 - 20px);
+
+form .signUpDetails .inputBox {
+	margin-bottom: 15px;
+	width: calc(100% / 2 - 20px);
 }
-form .inputBox span.inputDetails{
-  display: block;
-  font-weight: 500;
-  margin-bottom: 5px;
+
+form .inputBox span.inputDetails {
+	display: block;
+	font-weight: 500;
+	margin-bottom: 5px;
 }
-.signUpDetails .inputBox input{
-    padding: 10px;
+
+.signUpDetails .inputBox input {
+	padding: 10px;
 	margin-bottom: 20px;
 	width: 100%;
 	border: none;
 	border-radius: 5px;
-    border: 1px solid #006748;
+	border: 1px solid #006748;
 }
-
-  
