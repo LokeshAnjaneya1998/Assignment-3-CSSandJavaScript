@@ -222,7 +222,7 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
                 <input type="text" id="wishlistTableLocation" name="wishlistTableLocation" placeholder="Enter Job Location" required value="${wishlocation}">
                 </td>
                 <td>
-                <input type="text" id="wishlistTableSalary" name="wishlistTableSalary" placeholder="Enter Salary" required value="${wishsalary}">
+                <input type="number" id="wishlistTableSalary" name="wishlistTableSalary" placeholder="Enter Salary" required value="${wishsalary}">
                 </td>
                 <td></td>
                 <td><button class="update-button" id="update-button" data-id="${data.id}">Update</button></td>
