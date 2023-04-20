@@ -140,3 +140,20 @@ select {
   font-size: medium;
   padding: 5px;
 }
+
+.profileContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 50%;
+  
+  
+}
+
+.profileContainer td{
+
+  box-shadow: 0px 2px 5px #006748;
+  
+  padding: 34px;
+}

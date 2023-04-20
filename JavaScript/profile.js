@@ -30,7 +30,7 @@ signuprequest.onsuccess = () => {
             const tbody = document.createElement('tbody');
             if(storedValue == job.username){
             tbody.innerHTML = `
-        
+        <tr><td></td><td></td></tr>
         <tr><td> Name:</td>
         <td>${job.firstname + " " + job.lastname} </td></tr>
         <tr> <td> School:</td>
