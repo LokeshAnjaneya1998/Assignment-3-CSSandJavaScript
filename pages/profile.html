@@ -20,16 +20,46 @@
       <a href="aboutUs.html">About Us</a>
       <a href="chart.html">Chart</a>
       <a class="notification" id="notification" href="notifications.html">&#128276;!</a>
-      <a class="profile" id="profile" href="profile.html">&#x1F464;</a>
+      <a class="profile" id="profile" href="profile.html"> &#x2620;</a>
       <a class="logout-button" href="../index.html">LogOut</a>
     </ul>
   </div>
-<div class="profileContainer">
-<table>
-<thead id="profileDataTableBody">
-<script src="../JavaScript/profile.js"></script>
-</thead>
-</table>
-</div>
-  </body>
-  </html>
+  <div class="table-container">
+    <div class="left-table">
+      <table>
+        <tbody id="left-table">
+
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="right-table">
+      
+      <table>
+        <thead>
+          <tr>
+            <th class="tableHeading"></th>
+            <th class="tableHeading"></th>
+            
+            <th class="tableHeading"><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</h2></th> 
+          </tr>
+          <tr>
+            <th>Company Name</th>
+            <th>Job Role</th>
+            <th>Job Type</th>
+            <th>Applied Date</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="right-table">
+          <script src="../JavaScript/main.js"></script>
+          <script src="../JavaScript/profile.js"></script>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

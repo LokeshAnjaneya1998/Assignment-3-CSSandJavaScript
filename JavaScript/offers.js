@@ -1,48 +1,3 @@
-const offersrequest = window.indexedDB.open("offersbullsData", 1);
-const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
-
-offersrequest.onerror = function (event) {
-  console.log("Error opening offers database.");
-};
-
-offersrequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the offers database.");
-};
-
-offersrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('offersjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in offers database.");
-};
-
-inProcessrequest.onerror = function (event) {
-  console.log("Error opening IN PROCESS database.");
-};
-
-inProcessrequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the IN PROCESS database.");
-};
-
-inProcessrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('inprocessjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in IN PROCESS database.");
-};
-
-var currentTimestamp = new Date();
-
-var hours = currentTimestamp.getHours().toString().padStart(2, '0');
-var minutes = currentTimestamp.getMinutes().toString().padStart(2, '0');
-var month = (currentTimestamp.getMonth() + 1).toString().padStart(2, '0');
-var day = currentTimestamp.getDate().toString().padStart(2, '0');
-var year = currentTimestamp.getFullYear();
-
-var todayDate = month + '/' + day + '/' + year;
-
-console.log(todayDate);
-
 document.getElementById('offersDataTableBody').addEventListener('click', (event) => {
   const db = offersrequest.result;
   const transaction = db.transaction('offersjobs', 'readwrite');
@@ -131,6 +86,7 @@ document.getElementById('offersDataTableBody').addEventListener('click', (event)
   }
 });
 
+function displayInprocessData(tableNmae){
 offersrequest.onsuccess = () => {
   const transaction = offersrequest.result.transaction('offersjobs', 'readonly');
   const store = transaction.objectStore('offersjobs');
@@ -138,7 +94,7 @@ offersrequest.onsuccess = () => {
 
   getAllRequest.onsuccess = () => {
     const jobs = getAllRequest.result;
-    const tbody = document.getElementById('offersDataTableBody');
+    const tbody = document.getElementById(tableNmae);
 
     for (const job of jobs) {
       const tr = document.createElement('tr');
@@ -179,6 +135,8 @@ offersrequest.onsuccess = () => {
     console.error('Error getting jobs from database', event.target.error);
   };
 };
+};
+displayInprocessData('offersDataTableBody');
 function preventBack() {
   window.history.forward();
 }

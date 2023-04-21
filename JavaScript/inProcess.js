@@ -1,66 +1,3 @@
-const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
-const offersrequest = window.indexedDB.open("offersbullsData", 1);
-const eventrequest = window.indexedDB.open("eventsbullsData", 1);
-
-
-inProcessrequest.onerror = function (event) {
-  console.log("Error opening IN PROCESS database.");
-};
-
-inProcessrequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the IN PROCESS database.");
-};
-
-inProcessrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('inprocessjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in IN PROCESS database.");
-};
-
-offersrequest.onerror = function (event) {
-  console.log("Error opening offers database.");
-};
-
-offersrequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the offers database.");
-};
-
-offersrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('offersjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in offers database.");
-};
-
-eventrequest.onerror = function (event) {
-  console.log("Error opening IN PROCESS database.");
-};
-
-eventrequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the IN PROCESS database.");
-};
-
-eventrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('eventjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in IN PROCESS database.");
-};
-
-var currentTimestamp = new Date();
-
-var hours = currentTimestamp.getHours().toString().padStart(2, '0');
-var minutes = currentTimestamp.getMinutes().toString().padStart(2, '0');
-var month = (currentTimestamp.getMonth() + 1).toString().padStart(2, '0');
-var day = currentTimestamp.getDate().toString().padStart(2, '0');
-var year = currentTimestamp.getFullYear();
-
-var formattedTimestamp = hours + ':' + minutes + ', ' + month + '/' + day + '/' + year;
-
-console.log(formattedTimestamp);
-
-
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('rejected-button')) {
     const db = inProcessrequest.result;
@@ -173,7 +110,7 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
   }
 });
 
-
+function displayInprocessData(tableNmae){
 inProcessrequest.onsuccess = () => {
   const transaction = inProcessrequest.result.transaction('inprocessjobs', 'readonly');
   const store = transaction.objectStore('inprocessjobs');
@@ -181,7 +118,7 @@ inProcessrequest.onsuccess = () => {
 
   getAllRequest.onsuccess = () => {
     const jobs = getAllRequest.result;
-    const tbody = document.getElementById('inProcessDataTableBody');
+    const tbody = document.getElementById(tableNmae);
 
     for (const job of jobs) {
       const tr = document.createElement('tr');
@@ -204,6 +141,9 @@ inProcessrequest.onsuccess = () => {
     console.error('Error getting jobs from database', event.target.error);
   };
 };
+};
+displayInprocessData('inProcessDataTableBody');
+
 function preventBack() {
   window.history.forward();
 }

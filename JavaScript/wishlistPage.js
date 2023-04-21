@@ -1,35 +1,3 @@
-const request = window.indexedDB.open("wishlistbullsData", 1);
-const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
-request.onerror = function (event) {
-  console.log("Error opening JOBS database.");
-};
-
-request.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the JOBS database.");
-};
-
-request.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('jobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in JOBS database.");
-};
-
-inProcessrequest.onerror = function (event) {
-  console.log("Error opening IN PROCESS database.");
-};
-
-inProcessrequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the IN PROCESS database.");
-};
-
-inProcessrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('inprocessjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in IN PROCESS database.");
-};
-
 document.getElementById('addJobButton').addEventListener('click', (event) => {
   event.preventDefault();
 
@@ -67,36 +35,19 @@ document.getElementById('addJobButton').addEventListener('click', (event) => {
   }
 });
 
-document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
-  if (event.target.classList.contains('delete-button')) {
-    const db = request.result;
-    const transaction = db.transaction('jobs', 'readwrite');
-    const store = transaction.objectStore('jobs');
-
-    const id = Number(event.target.getAttribute('data-id'));
-
-    const deleteRequest = store.delete(id);
-
-    deleteRequest.onsuccess = () => {
-      event.target.parentNode.parentNode.remove();
-      console.log("Deleted Successfully");
-    };
-
-    deleteRequest.onerror = (event) => {
-      console.error('Error deleting job from database', event.target.error);
-    };
-  }
-});
 
 
 document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
-  if (event.target.classList.contains('inProcess-button')) {
-    const db = request.result;
+
+  const db = request.result;
     const jobtransaction = db.transaction('jobs', 'readwrite');
-    const jobStore = jobtransaction.objectStore('jobs');
+    const store = jobtransaction.objectStore('jobs');
+
+  if (event.target.classList.contains('inProcess-button')) {
+    
     const jobId = Number(event.target.getAttribute('data-id'));
 
-    const getRequest = jobStore.get(jobId);
+    const getRequest = store.get(jobId);
     getRequest.onsuccess = (event) => {
       const inprocessjob = event.target.result;
 
@@ -114,7 +65,7 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
       };
 
     }
-    const deleteRequest = jobStore.delete(jobId);
+    const deleteRequest = store.delete(jobId);
     deleteRequest.onsuccess = () => {
       event.target.parentNode.parentNode.remove();
       console.log("Deleted Successfully");
@@ -124,57 +75,11 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
       console.error('Error deleting job from database', event.target.error);
     };
   }
-});
 
-request.onsuccess = () => {
-  const transaction = request.result.transaction('jobs', 'readonly');
-  const store = transaction.objectStore('jobs');
-  const getAllRequest = store.getAll();
-
-  getAllRequest.onsuccess = () => {
-    const jobs = getAllRequest.result;
-    const tbody = document.getElementById('wishlistDataTableBody');
-
-    for (const job of jobs) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-          <td>${job.Companyname}</td>
-          <td>${job.jobRole}</td>
-          <td>${job.jobType}</td>
-          <td>${job.appliedDate}</td>
-          <td>${job.location}</td>
-          <td>${job.salary}</td>
-          <td><button class="edit-button" id="edit-button" data-id="${job.id}">Edit Job</button></td>
-          <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
-          <td><button class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
-        `;
-      tbody.appendChild(tr);
-    }
-  };
-
-  getAllRequest.onerror = (event) => {
-    console.error('Error getting jobs from database', event.target.error);
-  };
-};
-let id1;
-document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('edit-button')) {
-    const buttons = document.querySelectorAll('.edit-button, .addJob-button');
-    let activeButton = null;
-    buttons.forEach(button => {
-      console.log('debug1');
-      buttons.forEach(btn => {
-        if (btn !== button) {
-          console.log('debug3');
-          btn.disabled = (btn !== activeButton);
-
-        }
-      });
-    });
+    disableButtons();
     const row = event.target.parentNode.parentNode;
-    const transaction = request.result.transaction('jobs', 'readwrite');
-    const store = transaction.objectStore('jobs');
-    id1 = Number(event.target.getAttribute('data-id'));
+    let id1 = Number(event.target.getAttribute('data-id'));
     console.log('this is my id', id1)
     const getAllRequest = store.get(id1);
     console.log(getAllRequest);
@@ -226,7 +131,7 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
                 </td>
                 <td></td>
                 <td><button class="update-button" id="update-button" data-id="${data.id}">Update</button></td>
-                <td><button class="cancel-button" id="delete-button" data-id="${data.id}">cancel</button></td>
+                <td><button onclick="cancelButton()"class="cancel-button" id="cancel-button" data-id="${data.id}">cancel</button></td>
                 `;
 
     };
@@ -235,9 +140,7 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     };
 
   }
-});
 
-document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
   if (event.target.classList.contains('update-button')) {
     const wishCompanyname = document.getElementById('wishlistTableCompanyName').value;
     const wishjobRole = document.getElementById('wishlistTableJobRole').value;
@@ -252,8 +155,6 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     else if (wishlocation == "") { alert('Please Enter Location') }
     else if (wishsalary == "") { alert('Please Enter Salary') }
     if (wishCompanyname && wishjobRole && wishjobType && wishappliedDate && wishlocation && wishsalary) {
-      const transaction = request.result.transaction('jobs', 'readwrite');
-      const store = transaction.objectStore('jobs');
       const id = Number(event.target.getAttribute('data-id'));
       const getAllRequest = store.get(id);
       console.log(getAllRequest);
@@ -276,14 +177,37 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
   }
 });
 
-document.getElementById('wishlistDataTableBody').addEventListener('click', (event) => {
-  if (event.target.classList.contains('cancel-button')) {
-    window.location.reload();
-  }
-});
+function displayWishlistData(tableNmae){
+request.onsuccess = () => {
+  
+  const transaction = request.result.transaction('jobs', 'readonly');
+  const store = transaction.objectStore('jobs');
+  const getAllRequest = store.getAll();
 
-function preventBack() {
-  window.history.forward();
-}
-setTimeout("preventBack()", 0);
-window.onunload = function () { null };
+  getAllRequest.onsuccess = () => {
+    const alljobs = getAllRequest.result;
+    const tbody = document.getElementById(tableNmae);
+    for (const job of alljobs) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+          <td>${job.Companyname}</td>
+          <td>${job.jobRole}</td>
+          <td>${job.jobType}</td>
+          <td>${job.appliedDate}</td>
+          <td>${job.location}</td>
+          <td>${job.salary}</td>
+          <td><button class="edit-button" id="edit-button" data-id="${job.id}">Edit Job</button></td>
+          <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
+          <td><button onclick="deleteButton(${'request'}, 'jobs')" class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
+        `;
+      tbody.appendChild(tr);
+    }
+  };
+
+  getAllRequest.onerror = (event) => {
+    console.error('Error getting jobs from database', event.target.error);
+  };
+};
+};
+displayWishlistData('wishlistDataTableBody');
+

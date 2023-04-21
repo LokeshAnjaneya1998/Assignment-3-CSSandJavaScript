@@ -1,21 +1,3 @@
-const signuprequest = window.indexedDB.open("signupbullsData", 1);
-signuprequest.onerror = function (event) {
-  console.log("Error opening signup database.");
-};
-
-signuprequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the signup database.");
-};
-
-signuprequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('signupids', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in signup database.");
-};
-
-
-
 document.getElementById('loginButton').addEventListener('click', (event) => {
   event.preventDefault();
   const loginusername = document.getElementById('username').value.trim();
@@ -55,9 +37,3 @@ document.getElementById('sugnUpButton').addEventListener('click', (event) => {
   event.preventDefault();
   window.location.href = "./pages/signUp.html";
 });
-
-function preventBack() {
-  window.history.forward();
-}
-setTimeout("preventBack()", 0);
-window.onunload = function () { null };

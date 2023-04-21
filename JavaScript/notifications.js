@@ -1,38 +1,3 @@
-const eventrequest = window.indexedDB.open("eventsbullsData", 1);
-
-
-eventrequest.onerror = function (event) {
-    console.log("Error opening IN PROCESS database.");
-};
-
-eventrequest.onsuccess = function (event) {
-    const db = event.target.result;
-    console.log("Connected to the IN PROCESS database.");
-};
-
-eventrequest.onupgradeneeded = (event) => {
-    const db = event.target.result;
-    db.createObjectStore('eventjobs', { keyPath: 'id', autoIncrement: true });
-    console.log("Started in IN PROCESS database.");
-};
-
-var currentTimestamp = new Date();
-
-var hours = currentTimestamp.getHours().toString().padStart(2, '0');
-var minutes = currentTimestamp.getMinutes().toString().padStart(2, '0');
-var month = (currentTimestamp.getMonth() + 1).toString().padStart(2, '0');
-var day = currentTimestamp.getDate().toString().padStart(2, '0');
-var year = currentTimestamp.getFullYear();
-
-const todayDate = year + '-' + month + '-' + day;
-let intDay = parseInt(day)+1
-var tday = intDay.toString()
-const tomorrowDate = year + '-' + month + '-' + tday;
-
-console.log(todayDate);
-console.log(tomorrowDate);
-
-
 eventrequest.onsuccess = () => {
     const transaction = eventrequest.result.transaction('eventjobs', 'readonly');
     const store = transaction.objectStore('eventjobs');
@@ -70,8 +35,3 @@ eventrequest.onsuccess = () => {
     };
 };
 
-function preventBack() {
-    window.history.forward();
-  }
-  setTimeout("preventBack()", 0);
-  window.onunload = function () { null };
