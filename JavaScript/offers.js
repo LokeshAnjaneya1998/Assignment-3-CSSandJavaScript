@@ -93,7 +93,7 @@ offersrequest.onsuccess = () => {
   const getAllRequest = store.getAll();
 
   getAllRequest.onsuccess = () => {
-    const jobs = getAllRequest.result;
+    const jobs = getAllRequest.result.reverse();
     const tbody = document.getElementById(tableNmae);
 
     for (const job of jobs) {
@@ -110,21 +110,22 @@ offersrequest.onsuccess = () => {
       if (job.acceptMark == 'Yes') {
         tr.innerHTML += `
             <td class="complete-text">PARTY!!</button></td>
-            <td><button class="undo-button" id="delete-button" data-id="${job.id}">Undo</button></td>
+            <td><button class="undo-button" id="undo-button" data-id="${job.id}">Undo</button></td>
         `;
       } else {
         tr.innerHTML += `
               <td><button class="accept-button" id="accept-button" data-id="${job.id}">Accept</button></td>
-              <td><button class="inprocess-button" id="inprocess-button" data-id="${job.id}">In Process</button></td>
+              <td><button onclick="moveToPages('offersDataTableBody', ${'offersrequest'}, 'offersjobs', ${'inProcessrequest'}, 'inprocessjobs')"
+              class="inprocess-button" id="inprocess-button" data-id="${job.id}">In Process</button></td>
             `;
       }
       if (job.acceptMark == 'Yes') {
         tr.innerHTML += `
-          <td><button class="reject-button" id="delete-button" data-id="${job.id}">Delete</button></td>
+          <td><button onclick="deleteButton(${'offersrequest'}, 'offersjobs')" class="reject-button" id="delete-button" data-id="${job.id}">Delete</button></td>
         `;
       } else {
         tr.innerHTML += `
-          <td><button class="reject-button" id="delete-button" data-id="${job.id}">Reject</button></td>
+          <td><button onclick="deleteButton(${'offersrequest'}, 'offersjobs')" class="reject-button" id="delete-button" data-id="${job.id}">Reject</button></td>
         `;
       }
       tbody.appendChild(tr);
@@ -137,8 +138,4 @@ offersrequest.onsuccess = () => {
 };
 };
 displayInprocessData('offersDataTableBody');
-function preventBack() {
-  window.history.forward();
-}
-setTimeout("preventBack()", 0);
-window.onunload = function () { null };
+

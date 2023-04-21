@@ -142,6 +142,65 @@ function deleteButton(databaseRequest, database) {
     });
 };
 
+function moveToPages(buttonId, databaseRequestCurrent, databaseCurrent, databaseRequestTarget, databaseTarget){
+    const moveid = document.getElementById(buttonId);
+    console.log(databaseCurrent);
+    let flag = '';
+    if(databaseCurrent == 'jobs'){
+        console.log('debig1');
+        moveid.click();  
+        moveid.click();
+    }else{
+    
+    if (flag == 'true'){
+    console.log(flag);
+    moveid.click();
+    }
+    if (flag == 'true'){
+    moveid.click();
+    }
+    flag = 'true';
+}
+    if(flag==''){
+    moveid.addEventListener('click', (event) => {
+        flag = 'True';
+        const db = databaseRequestCurrent.result;
+    const jobtransaction = db.transaction(databaseCurrent, 'readwrite');
+    const store = jobtransaction.objectStore(databaseCurrent);
+    const jobId = Number(event.target.getAttribute('data-id'));
+
+    const getRequest = store.get(jobId);
+    getRequest.onsuccess = (event) => {
+      const inprocessjob = event.target.result;
+
+      const inProcesstransaction = databaseRequestTarget.result.transaction(databaseTarget, 'readwrite');
+      const inProcessStore = inProcesstransaction.objectStore(databaseTarget);
+
+      const moveRequest = inProcessStore.add(inprocessjob);
+
+      moveRequest.onsuccess = () => {
+        console.log('Success adding inprocessjob to database');
+      };
+
+      moveRequest.onerror = (event) => {
+        console.error('Error adding job to database');
+      };
+
+    }
+    const deleteRequest = store.delete(jobId);
+    deleteRequest.onsuccess = () => {
+      event.target.parentNode.parentNode.remove();
+      flag = 'true';
+      console.log("Deleted Successfully!!");
+    };
+
+    deleteRequest.onerror = (event) => {
+      console.error('Error deleting job from database');
+    };
+  });
+}
+};
+
 function preventBack() {
     window.history.forward();
 }

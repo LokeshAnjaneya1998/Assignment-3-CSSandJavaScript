@@ -1,8 +1,8 @@
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
-  if (event.target.classList.contains('rejected-button')) {
-    const db = inProcessrequest.result;
+  const db = inProcessrequest.result;
     const transaction = db.transaction('inprocessjobs', 'readwrite');
     const store = transaction.objectStore('inprocessjobs');
+  if (event.target.classList.contains('rejected-button')) {
 
     const id = Number(event.target.getAttribute('data-id'));
 
@@ -17,17 +17,12 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
       console.error('Error deleting job from database', event.target.error);
     };
   }
-});
 
-document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
-
+  
   if (event.target.classList.contains('offer-button')) {
-    const db = inProcessrequest.result;
-    const jobtransaction = db.transaction('inprocessjobs', 'readwrite');
-    const jobStore = jobtransaction.objectStore('inprocessjobs');
 
     const jobId = Number(event.target.getAttribute('data-id'));
-    const getRequest = jobStore.get(jobId);
+    const getRequest = store.get(jobId);
     getRequest.onsuccess = (event) => {
       const offersjob = event.target.result;
 
@@ -45,7 +40,7 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
       };
 
     }
-    const deleteRequest = jobStore.delete(jobId);
+    const deleteRequest = store.delete(jobId);
     deleteRequest.onsuccess = () => {
       event.target.parentNode.parentNode.remove();
       console.log("Deleted Successfully");
@@ -55,16 +50,10 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
       console.error('Error deleting job from database', event.target.error);
     };
   }
-});
-
-document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
 
   if (event.target.classList.contains('events-button')) {
-    const db = inProcessrequest.result;
-    const jobtransaction = db.transaction('inprocessjobs', 'readwrite');
-    const jobStore = jobtransaction.objectStore('inprocessjobs');
     const jobId = Number(event.target.getAttribute('data-id'));
-    const getRequest = jobStore.get(jobId);
+    const getRequest = store.get(jobId);
 
     getRequest.onsuccess = (event) => {
       const eventsjob = event.target.result;
@@ -117,7 +106,7 @@ inProcessrequest.onsuccess = () => {
   const getAllRequest = store.getAll();
 
   getAllRequest.onsuccess = () => {
-    const jobs = getAllRequest.result;
+    const jobs = getAllRequest.result.reverse();
     const tbody = document.getElementById(tableNmae);
 
     for (const job of jobs) {
@@ -129,9 +118,10 @@ inProcessrequest.onsuccess = () => {
           <td>${job.appliedDate}</td>
           <td>${job.location}</td>
           <td>${job.salary}</td>
-          <td><button class="offer-button" id="offer-button" data-id="${job.id}">Offer</button></td>
+          <td><button onclick="moveToPages('offer-button',${'inProcessrequest'}, 'inprocessjobs', ${'offersrequest'},'offersjobs')"
+          class="offer-button" id="offer-button" data-id="${job.id}">Offer</button></td>
           <td><button class="events-button" id="events-button" data-id="${job.id}">Events</button></td>
-          <td><button class="rejected-button" id="delete-button" data-id="${job.id}">Rejected</button></td>
+          <td><button onclick="deleteButton(${'inProcessrequest'}, 'inprocessjobs')" class="rejected-button" id="delete-button" data-id="${job.id}">Rejected</button></td>
         `;
       tbody.appendChild(tr);
     }
@@ -144,8 +134,3 @@ inProcessrequest.onsuccess = () => {
 };
 displayInprocessData('inProcessDataTableBody');
 
-function preventBack() {
-  window.history.forward();
-}
-setTimeout("preventBack()", 0);
-window.onunload = function () { null };

@@ -43,39 +43,6 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
     const jobtransaction = db.transaction('jobs', 'readwrite');
     const store = jobtransaction.objectStore('jobs');
 
-  if (event.target.classList.contains('inProcess-button')) {
-    
-    const jobId = Number(event.target.getAttribute('data-id'));
-
-    const getRequest = store.get(jobId);
-    getRequest.onsuccess = (event) => {
-      const inprocessjob = event.target.result;
-
-      const inProcesstransaction = inProcessrequest.result.transaction('inprocessjobs', 'readwrite');
-      const inProcessStore = inProcesstransaction.objectStore('inprocessjobs');
-
-      const moveRequest = inProcessStore.add(inprocessjob);
-
-      moveRequest.onsuccess = () => {
-        console.log('Success adding inprocessjob to database');
-      };
-
-      moveRequest.onerror = (event) => {
-        console.error('Error adding job to database', event.target.error);
-      };
-
-    }
-    const deleteRequest = store.delete(jobId);
-    deleteRequest.onsuccess = () => {
-      event.target.parentNode.parentNode.remove();
-      console.log("Deleted Successfully");
-    };
-
-    deleteRequest.onerror = (event) => {
-      console.error('Error deleting job from database', event.target.error);
-    };
-  }
-
   if (event.target.classList.contains('edit-button')) {
     disableButtons();
     const row = event.target.parentNode.parentNode;
@@ -185,7 +152,7 @@ request.onsuccess = () => {
   const getAllRequest = store.getAll();
 
   getAllRequest.onsuccess = () => {
-    const alljobs = getAllRequest.result;
+    const alljobs = getAllRequest.result.reverse();
     const tbody = document.getElementById(tableNmae);
     for (const job of alljobs) {
       const tr = document.createElement('tr');
@@ -197,7 +164,8 @@ request.onsuccess = () => {
           <td>${job.location}</td>
           <td>${job.salary}</td>
           <td><button class="edit-button" id="edit-button" data-id="${job.id}">Edit Job</button></td>
-          <td><button class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
+          <td><button onclick="moveToPages('inProcess-button',${'request'}, 'jobs', ${'inProcessrequest'}, 'inprocessjobs')"
+          class="inProcess-button" id="inProcess-button" data-id="${job.id}">In Process</button></td>
           <td><button onclick="deleteButton(${'request'}, 'jobs')" class="delete-button" id="delete-button" data-id="${job.id}">Delete</button></td>
         `;
       tbody.appendChild(tr);
