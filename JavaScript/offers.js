@@ -55,38 +55,9 @@ document.getElementById('offersDataTableBody').addEventListener('click', (event)
     };
   }
 
-  if (event.target.classList.contains('inprocess-button')) {
-    const jobId = Number(event.target.getAttribute('data-id'));
-    const getRequest = store.get(jobId);
-    getRequest.onsuccess = (event) => {
-      const db = event.target.result;
-      const jobtransaction = inProcessrequest.result.transaction('inprocessjobs', 'readwrite');
-      const inProcessjob = jobtransaction.objectStore('inprocessjobs');
-
-      const moveRequest = inProcessjob.add(db);
-
-      moveRequest.onsuccess = () => {
-        console.log('Success adding offersjob to database');
-      };
-
-      moveRequest.onerror = (event) => {
-        console.error('Error adding job to database', event.target.error);
-      };
-
-    }
-    const deleteRequest = store.delete(jobId);
-    deleteRequest.onsuccess = () => {
-      event.target.parentNode.parentNode.remove();
-      console.log("Deleted Successfully");
-    };
-
-    deleteRequest.onerror = (event) => {
-      console.error('Error deleting job from database', event.target.error);
-    };
-  }
 });
 
-function displayInprocessData(tableNmae){
+function displayOffersData(tableNmae){
 offersrequest.onsuccess = () => {
   const transaction = offersrequest.result.transaction('offersjobs', 'readonly');
   const store = transaction.objectStore('offersjobs');
@@ -95,7 +66,16 @@ offersrequest.onsuccess = () => {
   getAllRequest.onsuccess = () => {
     const jobs = getAllRequest.result.reverse();
     const tbody = document.getElementById(tableNmae);
-
+     console.log(jobs.length);
+      if(jobs.length == 0){
+        const msgString = document.getElementById('emptymsg');
+        console.log(jobs.length);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><h1>You have no offers yet!!</h1></td>
+          `
+          msgString.appendChild(tr);
+      }
     for (const job of jobs) {
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -137,5 +117,5 @@ offersrequest.onsuccess = () => {
   };
 };
 };
-displayInprocessData('offersDataTableBody');
+displayOffersData('offersDataTableBody');
 

@@ -147,7 +147,16 @@ function displayEventsData(tableName) {
         getAllRequest.onsuccess = () => {
             const jobs = getAllRequest.result.reverse();
             const tbody = document.getElementById(tableName);
-
+            console.log(jobs.length);
+            if (jobs.length == 0) {
+                const msgString = document.getElementById('emptymsg');
+                console.log(jobs.length);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                <td><h1>You have no events here!! Please go to InProcess or add an event.</h1></td>
+                `
+                msgString.appendChild(tr);
+            }
             for (const job of jobs) {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `

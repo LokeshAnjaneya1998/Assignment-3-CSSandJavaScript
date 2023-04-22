@@ -146,14 +146,22 @@ document.getElementById('wishlistDataTableBody').addEventListener('click', (even
 
 function displayWishlistData(tableNmae){
 request.onsuccess = () => {
-  
+
   const transaction = request.result.transaction('jobs', 'readonly');
   const store = transaction.objectStore('jobs');
   const getAllRequest = store.getAll();
-
   getAllRequest.onsuccess = () => {
     const alljobs = getAllRequest.result.reverse();
     const tbody = document.getElementById(tableNmae);
+    if(alljobs.length == 0){
+      const msgString = document.getElementById('emptymsg');
+      console.log(alljobs.length);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><h1>You have no Jobs here!! Please add a job.</h1></td>
+        `
+        msgString.appendChild(tr);
+    }
     for (const job of alljobs) {
       const tr = document.createElement('tr');
       tr.innerHTML = `

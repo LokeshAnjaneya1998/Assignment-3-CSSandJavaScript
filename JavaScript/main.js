@@ -137,6 +137,7 @@ function deleteButton(databaseRequest, database) {
         deleteRequest.onsuccess = () => {
             event.target.parentNode.parentNode.remove();
             console.log("Deleted Successfully");
+            window.location.reload();
         };
 
         deleteRequest.onerror = (event) => {
@@ -149,26 +150,10 @@ function deleteButton(databaseRequest, database) {
 function moveToPages(buttonId, databaseRequestCurrent, databaseCurrent, databaseRequestTarget, databaseTarget){
     const moveid = document.getElementById(buttonId);
     console.log(databaseCurrent);
-    let flag = '';
-    if(databaseCurrent == 'jobs'){
-        console.log('debig1');
         moveid.click();
         moveid.click();
-    }else{
-
-    if (flag == 'true'){
-    console.log(flag);
-    moveid.click();
-    }
-    if (flag == 'true'){
-    moveid.click();
-    }
-    flag = 'true';
-}
-    if(flag==''){
     moveid.addEventListener('click', (event) => {
-        flag = 'True';
-        const db = databaseRequestCurrent.result;
+    const db = databaseRequestCurrent.result;
     const jobtransaction = db.transaction(databaseCurrent, 'readwrite');
     const store = jobtransaction.objectStore(databaseCurrent);
     const jobId = Number(event.target.getAttribute('data-id'));
@@ -196,13 +181,14 @@ function moveToPages(buttonId, databaseRequestCurrent, databaseCurrent, database
       event.target.parentNode.parentNode.remove();
       flag = 'true';
       console.log("Deleted Successfully!!");
+      window.location.reload();
     };
 
     deleteRequest.onerror = (event) => {
       console.error('Error deleting job from database');
     };
   });
-}
+
 };
 
 function preventBack() {
