@@ -23,18 +23,35 @@ document.getElementById('signupbutton').addEventListener('click', (event) => {
 
     const transaction = signuprequest.result.transaction('signupids', 'readwrite');
     const store = transaction.objectStore('signupids');
+    const getAllRequest = store.getAll()
+    getAllRequest.onsuccess = () => {
+      let verification = "Pass";
+      const jobs = getAllRequest.result;
+      for (const job of jobs) {
+        if (job.username.toLowerCase() == username.toLowerCase()) {
+          console.log(job.id);
+          verification = "Fail";
+        }
 
-    const inputdata = { firstname, lastname, school, city, state, email, username, password };
+      }
+      console.log(verification)
+      if (verification == "Fail") {
+        alert('Username already exist!! try different username');
+      } else {
 
-    const addRequest = store.add(inputdata);
+        const inputdata = { firstname, lastname, school, city, state, email, username, password };
 
-    addRequest.onsuccess = () => {
-      alert('SignUp successful!! Please login')
-      window.location.href = "../index.html";
-    };
+        const addRequest = store.add(inputdata);
 
-    addRequest.onerror = (event) => {
-      console.error('Error adding job to database', event.target.error);
+        addRequest.onsuccess = () => {
+          alert('SignUp successful!! Please login')
+          window.location.href = "../index.html";
+        };
+
+        addRequest.onerror = (event) => {
+          console.error('Error adding job to database', event.target.error);
+        };
+      }
     };
   }
 });

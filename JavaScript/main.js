@@ -1,7 +1,10 @@
-const request = window.indexedDB.open("wishlistbullsData", 1);
-const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
-const offersrequest = window.indexedDB.open("offersbullsData", 1);
-const eventrequest = window.indexedDB.open("eventsbullsData", 1);
+var storedValue = localStorage.getItem('usernameVerify').toLowerCase();
+console.log('Stored Value for Data:', storedValue);
+const datageneration = storedValue;
+const request = window.indexedDB.open(datageneration+"wishlistbullsData", 1);
+const inProcessrequest = window.indexedDB.open(datageneration+"inpricessbullsData", 1);
+const offersrequest = window.indexedDB.open(datageneration+"offersbullsData", 1);
+const eventrequest = window.indexedDB.open(datageneration+"eventsbullsData", 1);
 const signuprequest = window.indexedDB.open("signupbullsData", 1);
 
 signuprequest.onerror = function (event) {
@@ -59,6 +62,7 @@ offersrequest.onsuccess = function (event) {
 
 offersrequest.onupgradeneeded = (event) => {
     const db = event.target.result;
+
     db.createObjectStore('offersjobs', { keyPath: 'id', autoIncrement: true });
     console.log("Started in offers database.");
 };
@@ -148,10 +152,10 @@ function moveToPages(buttonId, databaseRequestCurrent, databaseCurrent, database
     let flag = '';
     if(databaseCurrent == 'jobs'){
         console.log('debig1');
-        moveid.click();  
+        moveid.click();
         moveid.click();
     }else{
-    
+
     if (flag == 'true'){
     console.log(flag);
     moveid.click();
