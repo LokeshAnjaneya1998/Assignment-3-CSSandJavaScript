@@ -5,22 +5,7 @@ const request = window.indexedDB.open(datageneration+"wishlistbullsData", 1);
 const inProcessrequest = window.indexedDB.open(datageneration+"inpricessbullsData", 1);
 const offersrequest = window.indexedDB.open(datageneration+"offersbullsData", 1);
 const eventrequest = window.indexedDB.open(datageneration+"eventsbullsData", 1);
-const signuprequest = window.indexedDB.open("signupbullsData", 1);
 
-signuprequest.onerror = function (event) {
-  console.log("Error opening signup database.");
-};
-
-signuprequest.onsuccess = function (event) {
-  const db = event.target.result;
-  console.log("Connected to the signup database.");
-};
-
-signuprequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('signupids', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in signup database.");
-};
 request.onerror = function (event) {
     console.log("Error opening JOBS database.");
 };
