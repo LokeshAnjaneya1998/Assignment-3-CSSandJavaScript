@@ -52,3 +52,10 @@ document.getElementById('sugnUpButton').addEventListener('click', (event) => {
   event.preventDefault();
   window.location.href = "./pages/signUp.html";
 });
+localStorage.setItem('reloaded', '');
+function preventBack() {
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
+

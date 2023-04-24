@@ -110,14 +110,14 @@ video {
 
 
 
-.navbar .notification:hover {
+.navbar #notification:hover {
   background-color:#006748;
   color: red;
 }
 
 
 
-.navbar .profile:hover {
+.navbar #profile:hover {
   background-color:#006748;
   color: black;
 }

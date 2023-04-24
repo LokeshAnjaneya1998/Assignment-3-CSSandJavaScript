@@ -1,19 +1,33 @@
+const signuprequest = window.indexedDB.open("signupbullsData", 1);
+signuprequest.onerror = function (event) {
+    console.log("Error opening signup database.");
+  };
 
+  signuprequest.onsuccess = function (event) {
+    const db = event.target.result;
+    console.log("Connected to the signup database.");
+  };
+
+  signuprequest.onupgradeneeded = (event) => {
+    const db = event.target.result;
+    db.createObjectStore('signupids', { keyPath: 'id', autoIncrement: true });
+    console.log("Started in signup database.");
+  };
 signuprequest.onsuccess = () => {
     const transaction = signuprequest.result.transaction('signupids', 'readonly');
     const store = transaction.objectStore('signupids');
     const getAllRequest = store.getAll();
 
     getAllRequest.onsuccess = () => {
-        const jobs = getAllRequest.result.reverse();
+        const jobs = getAllRequest.result;
         const thead = document.getElementById('left-table');
         for (const job of jobs) {
             var storedValue = localStorage.getItem('usernameVerify');
             console.log('Stored Value:', storedValue);
             const tbody = document.createElement('tbody');
-            if (storedValue == job.username) {
+            if (storedValue.toLowerCase() == job.username.toLowerCase()) {
                 tbody.innerHTML = `
-        
+
         <tr><td> Name:</td>
         <td>${job.firstname + " " + job.lastname} </td></tr>
         <tr> <td> School:</td>
@@ -126,3 +140,4 @@ offersrequest.onsuccess = () => {
         console.error('Error getting jobs from database', event.target.error);
     };
 };
+

@@ -4,7 +4,7 @@ eventrequest.onsuccess = () => {
     const getAllRequest = store.getAll();
 
     getAllRequest.onsuccess = () => {
-        const jobs = getAllRequest.result.reverse();
+        const jobs = getAllRequest.result;
         const tbody = document.getElementById('notificationsDataTableBody');
         for (const job of jobs) {
             const tr = document.createElement('tr');
@@ -29,6 +29,7 @@ eventrequest.onsuccess = () => {
 
             tbody.appendChild(tr);
         }
+        try{
         var numberOfRows = document.getElementById('notificationsDataTableBody').rows[0];
         var noOftd = numberOfRows.getElementsByTagName('td').length;
         console.log(noOftd);
@@ -40,9 +41,18 @@ eventrequest.onsuccess = () => {
             `
             msgString.appendChild(tr);
         }
+    } catch (error){
+        const msgString = document.getElementById('emptymsg');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+        <td><h1>You have no notifications!! Notifications appear when you have events due today/tomorrow.</h1></td>
+        `
+        msgString.appendChild(tr);
+    }
     };
     getAllRequest.onerror = (event) => {
         console.error('Error getting jobs from database', event.target.error);
+        localStorage.setItem('reloaded', '');
     };
 };
 

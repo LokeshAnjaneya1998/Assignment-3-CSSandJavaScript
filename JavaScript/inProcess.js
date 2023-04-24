@@ -75,7 +75,7 @@ function displayInprocessData(tableNmae) {
     const getAllRequest = store.getAll();
 
     getAllRequest.onsuccess = () => {
-      const jobs = getAllRequest.result.reverse();
+      const jobs = getAllRequest.result;
       const tbody = document.getElementById(tableNmae);
       console.log(jobs.length);
       if(jobs.length == 0){
@@ -111,4 +111,5 @@ function displayInprocessData(tableNmae) {
   };
 };
 displayInprocessData('inProcessDataTableBody');
+localStorage.setItem('reloaded', '');
 

@@ -151,7 +151,7 @@ request.onsuccess = () => {
   const store = transaction.objectStore('jobs');
   const getAllRequest = store.getAll();
   getAllRequest.onsuccess = () => {
-    const alljobs = getAllRequest.result.reverse();
+    const alljobs = getAllRequest.result;
     const tbody = document.getElementById(tableNmae);
     if(alljobs.length == 0){
       const msgString = document.getElementById('emptymsg');
@@ -186,4 +186,5 @@ request.onsuccess = () => {
 };
 };
 displayWishlistData('wishlistDataTableBody');
+localStorage.setItem('reloaded', '');
 

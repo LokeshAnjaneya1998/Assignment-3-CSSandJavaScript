@@ -76,3 +76,10 @@ document.getElementById('loginButton').addEventListener('click', (event) => {
   event.preventDefault();
   window.location.href = "../index.html";
 });
+displayOffersData('offersDataTableBody');
+function preventBack() {
+  window.history.forward();
+}
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
+

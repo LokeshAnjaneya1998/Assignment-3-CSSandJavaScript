@@ -176,8 +176,60 @@ function moveToPages(buttonId, databaseRequestCurrent, databaseCurrent, database
 
 };
 
+function monthlyData(databaseRequest, database, table){
+
+    databaseRequest.onsuccess = () => {
+      const transaction = databaseRequest.result.transaction(database, 'readonly');
+      const store = transaction.objectStore(database);
+      const getAllRequest = store.getAll();
+      getAllRequest.onsuccess = () => {
+        const alljobs = getAllRequest.result;
+        var janCount = 0; var febCount = 0; var marchCount = 0; var aprilCount = 0; var mayCount = 0; var juneCount = 0;
+        var julyCount = 0; var augCount = 0; var sepCount = 0; var octCount = 0; var novCount = 0; var decCount = 0;
+        for (const job of alljobs) {
+          var appDate = job.appliedDate;
+          var appMonth = appDate.split("-")[1];
+            console.log(appMonth);
+            if(appMonth == 01){janCount++;}
+            if(appMonth == 02){febCount++;}
+            if(appMonth == 03){marchCount++;}
+            if(appMonth == 04){aprilCount++;}
+            if(appMonth == 05){mayCount++;}
+            if(appMonth == 06){juneCount++;}
+            if(appMonth == 07){julyCount++;}
+            if(appMonth == 08){augCount++;}
+            if(appMonth == 09){sepCount++;}
+            if(appMonth == 10){octCount++;}
+            if(appMonth == 11){novCount++;}
+            if(appMonth == 12){decCount++;}
+
+        }
+        localStorage.setItem(table+'janCount', janCount);
+        localStorage.setItem(table+'febCount', febCount);
+        localStorage.setItem(table+'marchCount', marchCount);
+        localStorage.setItem(table+'aprilCount', aprilCount);
+        localStorage.setItem(table+'mayCount', mayCount);
+        localStorage.setItem(table+'juneCount', juneCount);
+        localStorage.setItem(table+'julyCount', julyCount);
+        localStorage.setItem(table+'augCount', augCount);
+        localStorage.setItem(table+'sepCount', sepCount);
+        localStorage.setItem(table+'octCount', octCount);
+        localStorage.setItem(table+'novCount', novCount);
+        localStorage.setItem(table+'decCount', decCount);
+
+      };
+    };
+
+  };
+
+function monNum(table,mon){
+    var monthValue = localStorage.getItem(table+mon+'Count');
+    return monthValue;
+}
+
 function preventBack() {
     window.history.forward();
 }
 setTimeout("preventBack()", 0);
 window.onunload = function () { null };
+
