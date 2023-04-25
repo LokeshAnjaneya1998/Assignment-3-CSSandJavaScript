@@ -1,8 +1,8 @@
 
 monthlyData(request, 'jobs', 'wish');
 monthlyData(inProcessrequest, 'inprocessjobs', 'inp');
-monthlyData(offersrequest, 'offersjobs', 'eve');
-monthlyData(eventrequest, 'eventjobs', 'off');
+monthlyData(eventrequest, 'eventjobs', 'eve');
+monthlyData(offersrequest, 'offersjobs', 'off');
 
 
 const data = {
@@ -62,20 +62,14 @@ const data = {
     },
   };
 
-
-  function reloadOnce() {
-    if (localStorage.getItem('reloaded') == '') {
-      console.log('debug');
-      localStorage.setItem('reloaded', 'true');
-      location.reload();
-    }
-  }
-
-
-
-
-  // Create chart
   const ctx = document.getElementById('job-applications-chart').getContext('2d');
   const chart = new Chart(ctx, config);
+
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('profilereload', '');
+localStorage.setItem('offersreload', '');
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('inprocesreload', '');
+localStorage.setItem('eventsreload', '');
 
 

@@ -111,5 +111,12 @@ function displayInprocessData(tableNmae) {
   };
 };
 displayInprocessData('inProcessDataTableBody');
-localStorage.setItem('reloaded', '');
+
+
+localStorage.setItem('chartreload', '');
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('profilereload', '');
+localStorage.setItem('offersreload', '');
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('eventsreload', '');
 

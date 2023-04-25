@@ -197,4 +197,11 @@ function displayEventsData(tableName) {
 };
 displayEventsData('eventsDataTableBody');
 
+localStorage.setItem('chartreload', '');
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('profilereload', '');
+localStorage.setItem('offersreload', '');
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('inprocesreload', '');
+
 

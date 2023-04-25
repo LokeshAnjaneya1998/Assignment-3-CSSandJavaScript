@@ -119,3 +119,11 @@ offersrequest.onsuccess = () => {
 };
 displayOffersData('offersDataTableBody');
 
+localStorage.setItem('chartreload', '');
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('profilereload', '');
+
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('inprocesreload', '');
+localStorage.setItem('eventsreload', '');
+

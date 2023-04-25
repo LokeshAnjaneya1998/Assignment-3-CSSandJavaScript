@@ -187,7 +187,12 @@ function monthlyData(databaseRequest, database, table){
         var janCount = 0; var febCount = 0; var marchCount = 0; var aprilCount = 0; var mayCount = 0; var juneCount = 0;
         var julyCount = 0; var augCount = 0; var sepCount = 0; var octCount = 0; var novCount = 0; var decCount = 0;
         for (const job of alljobs) {
-          var appDate = job.appliedDate;
+            if(database == 'eventjobs'){
+                var appDate = job.dueDate;
+            }else{
+                var appDate = job.appliedDate;
+            }
+
           var appMonth = appDate.split("-")[1];
             console.log(appMonth);
             if(appMonth == 01){janCount++;}
@@ -226,6 +231,14 @@ function monNum(table,mon){
     var monthValue = localStorage.getItem(table+mon+'Count');
     return monthValue;
 }
+
+function reloadOnce(page) {
+    if (localStorage.getItem(page+'reload') == '') {
+      console.log(page+'reload');
+      location.reload();
+      localStorage.setItem(page+'reload', 'true');
+    }
+  }
 
 function preventBack() {
     window.history.forward();

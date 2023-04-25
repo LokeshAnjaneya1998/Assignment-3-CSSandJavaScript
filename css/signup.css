@@ -27,7 +27,7 @@
 	align-items: center;
 	justify-content: center;
 	padding: 50px;
-	
+
 }
 
 /* Adjust image size */
@@ -37,7 +37,8 @@ img {
 }
 
 video {
-	width: 800px;
+	width: 100%;
+
 }
 
 .right-table h2 {

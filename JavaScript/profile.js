@@ -141,3 +141,9 @@ offersrequest.onsuccess = () => {
     };
 };
 
+localStorage.setItem('chartreload', '');
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('offersreload', '');
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('inprocesreload', '');
+localStorage.setItem('eventsreload', '');

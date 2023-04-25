@@ -186,5 +186,12 @@ request.onsuccess = () => {
 };
 };
 displayWishlistData('wishlistDataTableBody');
-localStorage.setItem('reloaded', '');
+localStorage.setItem('chartreload', '');
+
+localStorage.setItem('profilereload', '');
+localStorage.setItem('offersreload', '');
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('inprocesreload', '');
+localStorage.setItem('eventsreload', '');
+console.log('chartreload');
 
