@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <div class="navbar">
+    <b>
+      <img src="../img/fullusflogo.png" style="width:240px;height:48px;">
+    </b>
+    <ul>
+      <!--<a href="../index.html">Home</a>-->
+      <a href="wishList.html">Wish List</a>
+      <a href="inProcess.html">In Process</a>
+      <a href="events.html">Events</a>
+      <a href="offers.html">Offers</a>
+      <a href="aboutUs.html">About Us</a>
+      <a href="chart.html">Chart</a>
+      <a class="material-icons" id="notification" href="notifications.html">notifications_none!</a>
+      <a class="material-icons" id="profile" href="profile.html"> person_outline</a>
+      <a class="logout-button" href="../index.html">LogOut</a>
+    </ul>
+  </div>
+  <div class="table-container">
+    <div class="left-table">
+      <table>
+        <tbody id="left-table">
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="right-table">
+
+      <table>
+        <thead>
+          <tr>
+            <th class="tableHeading"></th>
+            <th class="tableHeading"></th>
+
+            <th class="tableHeading"><h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dashboard</h2></th>
+          </tr>
+          <tr>
+            <th>Company Name</th>
+            <th>Job Role</th>
+            <th>Job Type</th>
+            <th>Applied Date</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="right-table">
+          <script src="../JavaScript/main.js"></script>
+          <script src="../JavaScript/profile.js"></script>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+<body onload="reloadOnce('profile')"></body>
+</html>

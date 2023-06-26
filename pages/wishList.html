@@ -5,20 +5,25 @@
   <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 <!-- Navigation bar with logo links to different pages -->
 <div class="navbar">
-  <a href="../index.html" alt="USF Logo">
+  <b>
     <img src="../img/fullusflogo.png">
-  </a>
+  </b>
   <ul>
-    <a href="../index.html">Home</a>
+    <!--<a href="../index.html">Home</a>-->
     <a class="highlight" href="wishList.html">Wish List</a>
     <a href="inProcess.html">In Process</a>
-    <a href="offers.html">Offers</a>
     <a href="events.html">Events</a>
+    <a href="offers.html">Offers</a>
     <a href="aboutUs.html">About Us</a>
+    <a href="chart.html">Chart</a>
+    <a class="material-icons" id="notification" href="notifications.html">notifications_none!</a>
+    <a class="material-icons" id="profile" href="profile.html"> person_outline</a>
+    <a id="logout-button" class="logout-button" href="../index.html">LogOut</a>
   </ul>
 </div>
 <br><br><br>
@@ -46,7 +51,15 @@
       <input type="text" id="wishlistJobRole" name="wishlistJobRole" placeholder="Enter Job Role" required>
       <br>
       <label for="wishlistJobType">Job Type:</label>
-      <input type="text" id="wishlistJobType" name="wishlistJobType" placeholder="Enter Job Type" required>
+      <select type="text" class="jobTypeOption" id="wishlistJobType" name="wishlistJobType" placeholder="Enter Job Type" required>
+        <option value="" disabled selected hidden >Select Job Type</option>
+        <option value="Full-Time">Full-Time</option>
+        <option value="Full-Time (Remote)">Full-Time (Remote)</option>
+        <option value="Full-Time (Hybrid)">Full-Time (Hybrid)</option>
+        <option value="Contract">Contract</option>
+        <option value="Part-Time">Part-Time</option>
+        <option value="Internship">Internship</option>
+      </select>
       <br>
       <label for="wishlistAppliedDate">Applied Date:</label>
       <input type="date" id="wishlistAppliedDate" name="wishlistAppliedDate" placeholder="Enter Applied Dtae" required>
@@ -55,9 +68,9 @@
       <input type="text" id="wishlistLocation" name="wishlistLocation" placeholder="Enter Job Location" required>
       <br>
       <label for="wishlistSalary">Salary:</label>
-      <input type="text" id="wishlistSalary" name="wishlistSalary" placeholder="Enter Salary" required>
+      <input type="number" id="wishlistSalary" name="wishlistSalary" placeholder="Enter Salary" required>
       <br>
-      <button type="submit" id="addJobButton">Add Job</button>
+      <button type="submit" class="addJob-button" id="addJobButton">Add Job</button>
     </form>
     <table id="wishlistDataTable">
       <!-- Wish list Applications contains a table listing companies for which user wishes to apply-->
@@ -77,11 +90,15 @@
       </thead>
       <tbody id="wishlistDataTableBody">
         <body>
-       <script type="" src="../JavaScript/wishlistPage.js"></script>
+        <script src="../JavaScript/main.js"></script>
+       <script src="../JavaScript/wishlistPage.js"></script>
+
+
       </body>
       </tbody>
+      <table id="emptymsg"></table>
     </table>
   </div>
 </body>
-
+<body onload="reloadOnce('wishlist')"></body>
 </html>

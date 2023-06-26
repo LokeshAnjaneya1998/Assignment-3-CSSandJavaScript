@@ -1,31 +1,8 @@
-const offersrequest = window.indexedDB.open("offersbullsData", 1);
-// create an object store to store job records
-
-offersrequest.onerror = function(event) {
-  console.log("Error opening offers database.");
-};
-
-offersrequest.onsuccess = function(event) {
-  const db = event.target.result;
-  console.log("Connected to the offers database.");
-};
-
-offersrequest.onupgradeneeded = (event) => {
-const db = event.target.result;
-db.createObjectStore('offersjobs', { keyPath: 'id', autoIncrement: true });
-console.log("Started in offers database.");
-};
-
-
-
-
-// delete a job record from the database and the table
 document.getElementById('offersDataTableBody').addEventListener('click', (event) => {
+  const db = offersrequest.result;
+  const transaction = db.transaction('offersjobs', 'readwrite');
+  const store = transaction.objectStore('offersjobs');
   if (event.target.classList.contains('reject-button')) {
-    const db = offersrequest.result;
-    const transaction = db.transaction('offersjobs', 'readwrite');
-    const store = transaction.objectStore('offersjobs');
-
     const id = Number(event.target.getAttribute('data-id'));
 
     const deleteRequest = store.delete(id);
@@ -39,37 +16,114 @@ document.getElementById('offersDataTableBody').addEventListener('click', (event)
       console.error('Error deleting job from database', event.target.error);
     };
   }
+
+  if (event.target.classList.contains('accept-button')) {
+
+
+    const id = Number(event.target.getAttribute('data-id'));
+
+    const getAllRequest = store.get(id);
+
+    console.log(getAllRequest);
+    getAllRequest.onsuccess = function (event) {
+      const data = event.target.result;
+      data.acceptMark = 'Yes';
+      data.status = 'Accepted on '+todayDate;
+      store.put(data);
+      window.location.reload();
+    };
+    getAllRequest.onerror = (event) => {
+      console.error('Error adding job to database', event.target.error);
+    };
+  }
+
+  if (event.target.classList.contains('undo-button')) {
+    const id = Number(event.target.getAttribute('data-id'));
+
+    const getAllRequest = store.get(id);
+
+    console.log(getAllRequest);
+    getAllRequest.onsuccess = function (event) {
+      const data = event.target.result;
+      data.acceptMark = 'No';
+      data.status = 'Not yet responded';
+      store.put(data);
+      window.location.reload();
+    };
+    getAllRequest.onerror = (event) => {
+      console.error('Error adding job to database', event.target.error);
+    };
+  }
+
 });
 
-
-// load the existing jobs from the database and display them in the table
+function displayOffersData(tableNmae){
 offersrequest.onsuccess = () => {
-    const transaction = offersrequest.result.transaction('offersjobs', 'readonly');
-    const store = transaction.objectStore('offersjobs');
-    const getAllRequest = store.getAll();
-  
-    getAllRequest.onsuccess = () => {
-      const jobs = getAllRequest.result;
-      const tbody = document.getElementById('offersDataTableBody');
-  
-      for (const job of jobs) {
+  const transaction = offersrequest.result.transaction('offersjobs', 'readonly');
+  const store = transaction.objectStore('offersjobs');
+  const getAllRequest = store.getAll();
+
+  getAllRequest.onsuccess = () => {
+    const jobs = getAllRequest.result;
+    const tbody = document.getElementById(tableNmae);
+     console.log(jobs.length);
+      if(jobs.length == 0){
+        const msgString = document.getElementById('emptymsg');
+        console.log(jobs.length);
         const tr = document.createElement('tr');
         tr.innerHTML = `
+          <td><h1>You have no offers yet!!</h1></td>
+          `
+          msgString.appendChild(tr);
+      }
+    for (const job of jobs) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
           <td>${job.Companyname}</td>
           <td>${job.jobRole}</td>
           <td>${job.jobType}</td>
           <td>${job.appliedDate}</td>
           <td>${job.location}</td>
           <td>${job.salary}</td>
-          <td><button class="accept-button" id="accept-button" data-id="${job.id}">Accept</button></td>
-          <td><button class="reject-button" id="delete-button" data-id="${job.id}">Reject</button></td>
-          <td><button class="events-button" id="events-button" data-id="${job.id}">Events</button></td>
+          <td>${job.status}</td>
+          `;
+      if (job.acceptMark == 'Yes') {
+        tr.innerHTML += `
+            <td class="complete-text">PARTY!!</button></td>
+            <td><button class="undo-button" id="undo-button" data-id="${job.id}">Undo</button></td>
         `;
-        tbody.appendChild(tr);
+      } else {
+        tr.innerHTML += `
+              <td><button class="accept-button" id="accept-button" data-id="${job.id}">Accept</button></td>
+              <td><button onclick="moveToPages('offersDataTableBody', ${'offersrequest'}, 'offersjobs', ${'inProcessrequest'}, 'inprocessjobs')"
+              class="inprocess-button" id="inprocess-button" data-id="${job.id}">In Process</button></td>
+            `;
       }
-    };
-  
-    getAllRequest.onerror = (event) => {
-      console.error('Error getting jobs from database', event.target.error);
-    };
+      if (job.acceptMark == 'Yes') {
+        tr.innerHTML += `
+          <td><button onclick="deleteButton(${'offersrequest'}, 'offersjobs')" class="reject-button" id="delete-button" data-id="${job.id}">Delete</button></td>
+        `;
+      } else {
+        tr.innerHTML += `
+          <td><button onclick="deleteButton(${'offersrequest'}, 'offersjobs')" class="reject-button" id="delete-button" data-id="${job.id}">Reject</button></td>
+        `;
+      }
+      tbody.appendChild(tr);
+    }
   };
+
+  getAllRequest.onerror = (event) => {
+    console.error('Error getting jobs from database', event.target.error);
+  };
+};
+};
+displayOffersData('offersDataTableBody');
+
+localStorage.setItem('chartreload', '');
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('profilereload', '');
+
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('inprocesreload', '');
+localStorage.setItem('eventsreload', '');
+

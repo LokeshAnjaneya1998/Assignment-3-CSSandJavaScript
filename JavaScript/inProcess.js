@@ -1,46 +1,8 @@
-const inProcessrequest = window.indexedDB.open("inpricessbullsData", 1);
-const offersrequest = window.indexedDB.open("offersbullsData", 1);
-// create an object store to store job records
-
-inProcessrequest.onerror = function(event) {
-  console.log("Error opening IN PROCESS database.");
-};
-
-inProcessrequest.onsuccess = function(event) {
-  const db = event.target.result;
-  console.log("Connected to the IN PROCESS database.");
-};
-
-inProcessrequest.onupgradeneeded = (event) => {
-  const db = event.target.result;
-  db.createObjectStore('inprocessjobs', { keyPath: 'id', autoIncrement: true });
-  console.log("Started in IN PROCESS database.");
-};
-
-offersrequest.onerror = function(event) {
-  console.log("Error opening offers database.");
-};
-
-offersrequest.onsuccess = function(event) {
-  const db = event.target.result;
-  console.log("Connected to the offers database.");
-};
-
-offersrequest.onupgradeneeded = (event) => {
-const db = event.target.result;
-db.createObjectStore('offersjobs', { keyPath: 'id', autoIncrement: true });
-console.log("Started in offers database.");
-};
-
-
-
-
-// delete a job record from the database and the table
 document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
+  const db = inProcessrequest.result;
+  const transaction = db.transaction('inprocessjobs', 'readwrite');
+  const store = transaction.objectStore('inprocessjobs');
   if (event.target.classList.contains('rejected-button')) {
-    const db = inProcessrequest.result;
-    const transaction = db.transaction('inprocessjobs', 'readwrite');
-    const store = transaction.objectStore('inprocessjobs');
 
     const id = Number(event.target.getAttribute('data-id'));
 
@@ -55,56 +17,76 @@ document.getElementById('inProcessDataTableBody').addEventListener('click', (eve
       console.error('Error deleting job from database', event.target.error);
     };
   }
-});
 
-document.getElementById('inProcessDataTableBody').addEventListener('click', (event) => {
-  
-  if (event.target.classList.contains('offer-button')) {
-    const db = inProcessrequest.result;
-    const jobtransaction = db.transaction('inprocessjobs', 'readwrite'); // fix: use db.transaction instead of request.result.transaction
-    const jobStore = jobtransaction.objectStore('inprocessjobs');
-     // fix: use Number() to convert data-id to a number
-     const jobId = Number(event.target.getAttribute('data-id')); 
-    const getRequest = jobStore.get(jobId); // fix: use jobStore.get to get the job with the given ID
+
+
+  if (event.target.classList.contains('events-button')) {
+    const jobId = Number(event.target.getAttribute('data-id'));
+    const getRequest = store.get(jobId);
+
     getRequest.onsuccess = (event) => {
-      const offersjob = event.target.result;
+      const eventsjob = event.target.result;
+      const eventscompanyname = eventsjob.Companyname;
+      const eventsjobRole = eventsjob.jobRole;
+      const eventType = "";
+      const dueDate = "";
+      const completeMark = "No";
 
-      const offerstransaction = offersrequest.result.transaction('offersjobs', 'readwrite'); // fix: use db.transaction instead of inProcessrequest.result.transaction
-      const offersStore = offerstransaction.objectStore('offersjobs');
+      const eventstransaction = eventrequest.result.transaction('eventjobs', 'readwrite');
+      const eventsStore = eventstransaction.objectStore('eventjobs');
+      const getAllRequest = eventsStore.getAll();
+      getAllRequest.onsuccess = () => {
+        let eventExist = 'False';
+        const resultRequest = getAllRequest.result;
+        console.log(resultRequest);
+        for (event of resultRequest) {
+          console.log('debug', eventscompanyname);
+          console.log('debug', eventsjobRole);
+          console.log(event.eventscompanyname);
+          console.log(event.eventsjobRole);
+          if (event.eventscompanyname.toLowerCase() == eventscompanyname.toLowerCase() && event.eventsjobRole.toLowerCase() == eventsjobRole.toLowerCase()) {
+            eventExist = 'True'
+          }
+        }
+        if (eventExist == 'False') {
+          const job = { eventscompanyname, eventsjobRole, eventType, dueDate, completeMark };
 
-      const moveRequest = offersStore.add(offersjob);
+          const moveRequest = eventsStore.add(job);
+          moveRequest.onsuccess = () => {
+            console.log('Success adding eventsjob to database');
+            alert("Job added to Events!!");
+          };
 
-      moveRequest.onsuccess = () => {
-        console.log('Success adding offersjob to database');
+          moveRequest.onerror = (event) => {
+            console.error('Error adding job to database', event.target.error);
+          };
+        } else {
+          alert('A job with same details exist in events');
+        }
       };
-
-      moveRequest.onerror = (event) => {
-        console.error('Error adding job to database', event.target.error);
-      };
-    
-    }
-    const deleteRequest = jobStore.delete(jobId);
-    deleteRequest.onsuccess = () => {
-      event.target.parentNode.parentNode.remove();
-      console.log("Deleted Successfully");
-    };
-
-    deleteRequest.onerror = (event) => { // fix: use deleteRequest.onerror instead of request.onerror
-      console.error('Error deleting job from database', event.target.error);
     };
   }
 });
 
-// load the existing jobs from the database and display them in the table
-inProcessrequest.onsuccess = () => {
+function displayInprocessData(tableNmae) {
+  inProcessrequest.onsuccess = () => {
     const transaction = inProcessrequest.result.transaction('inprocessjobs', 'readonly');
     const store = transaction.objectStore('inprocessjobs');
     const getAllRequest = store.getAll();
-  
+
     getAllRequest.onsuccess = () => {
       const jobs = getAllRequest.result;
-      const tbody = document.getElementById('inProcessDataTableBody');
-  
+      const tbody = document.getElementById(tableNmae);
+      console.log(jobs.length);
+      if(jobs.length == 0){
+        const msgString = document.getElementById('emptymsg');
+        console.log(jobs.length);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><h1>You have no Jobs here!! Please go to wishlist and decide.</h1></td>
+          `
+          msgString.appendChild(tr);
+      }
       for (const job of jobs) {
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -114,15 +96,27 @@ inProcessrequest.onsuccess = () => {
           <td>${job.appliedDate}</td>
           <td>${job.location}</td>
           <td>${job.salary}</td>
-          <td><button class="offer-button" id="offer-button" data-id="${job.id}">Offer</button></td>
+          <td><button onclick="moveToPages('offer-button',${'inProcessrequest'}, 'inprocessjobs', ${'offersrequest'},'offersjobs')"
+          class="offer-button" id="offer-button" data-id="${job.id}">Offer</button></td>
           <td><button class="events-button" id="events-button" data-id="${job.id}">Events</button></td>
-          <td><button class="rejected-button" id="delete-button" data-id="${job.id}">Rejected</button></td>
+          <td><button onclick="deleteButton(${'inProcessrequest'}, 'inprocessjobs')" class="rejected-button" id="delete-button" data-id="${job.id}">Rejected</button></td>
         `;
         tbody.appendChild(tr);
       }
     };
-  
+
     getAllRequest.onerror = (event) => {
       console.error('Error getting jobs from database', event.target.error);
     };
   };
+};
+displayInprocessData('inProcessDataTableBody');
+
+
+localStorage.setItem('chartreload', '');
+localStorage.setItem('wishlistreload', '');
+localStorage.setItem('profilereload', '');
+localStorage.setItem('offersreload', '');
+localStorage.setItem('notificatonsreload', '');
+localStorage.setItem('eventsreload', '');
+

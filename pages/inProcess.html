@@ -5,19 +5,24 @@
   <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="../css/main.css">
   <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <!-- Navigation bar with logo links to different pages -->
 <div class="navbar">
-  <a href="../index.html" alt="USF Logo">
-    <img src="../img/fullusflogo.png">
-  </a>
+  <b>
+    <img src="../img/fullusflogo.png" aria-disabled="true">
+  </b>
   <ul>
-    <a href="../index.html">Home</a>
+    <!--<a href="../index.html">Home</a>-->
     <a href="wishList.html">Wish List</a>
     <a class="highlight" href="inProcess.html">In Process</a>
-    <a href="offers.html">Offers</a>
     <a href="events.html">Events</a>
+    <a href="offers.html">Offers</a>
     <a href="aboutUs.html">About Us</a>
+    <a href="chart.html">Chart</a>
+    <a class="material-icons" id="notification" href="notifications.html">notifications_none!</a>
+    <a class="material-icons" id="profile" href="profile.html"> person_outline</a>
+    <a class="logout-button" href="../index.html">LogOut</a>
   </ul>
 </div>
 <br><br><br>
@@ -46,10 +51,13 @@
         </tr>
       </thead>
       <tbody tbody id="inProcessDataTableBody">
-        <script type="" src="../JavaScript/inProcess.js"></script>
+        <script src="../JavaScript/main.js"></script>
+        <script src="../JavaScript/inProcess.js"></script>
+
       </tbody>
+      <table id="emptymsg"></table>
     </table>
   </div>
 </body>
-
+<body onload="reloadOnce('inproces')"></body>
 </html>

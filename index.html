@@ -2,40 +2,69 @@
 <html>
 
 <head>
-  <!-- 
+  <!--
     TEAM MEMBERS
 
     Naga Venkata Durga Anudeep Kolluru
     Lokesh Anjaneya Pothana
     Rajashekar Reddy Patlori
-    Shishira Kasala Vinayakumar 
+    Shishira Kasala Vinayakumar
   -->
   <!-- Connectig to css files -->
   <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <link rel="stylesheet" type="text/css" href="./css/signup.css">
+
 </head>
 <!-- Navigation bar with logo links to different pages -->
-<div class="navbar">
-  <a class="usflogo" href="index.html" alt="USF Logo">
+<!--<div class="navbar">
+  <b class="usflogo" alt="USF Logo">
     <img src="./img/fullusflogo.png">
-  </a>
-  <!--Defining fixed and responsive navbar-->
+  </b>
   <ul>
-    <a class="highlight" href="index.html">Home</a>
-    <a href="./pages/wishList.html">Wish List</a>
-    <a href="./pages/inProcess.html">In Process</a>
-    <a href="./pages/offers.html">Offers</a>
-    <a href="./pages/events.html">Events</a>
-    <a href="./pages/aboutUs.html">About Us</a>
+    <a class="logout-button" href="./pages/signUp.html">SignUp</a>
   </ul>
-</div>
-<br><br>
-<div class="homePageLogo" alt="Home Logo">
-  <img src="./img/homePageLogo.jpg">
-</div>
-<!-- Adding self prepared video description of our website to home page-->
-<video controls>
-  <source src="./content/bullTrack.mp4" type="video/mp4">
-</video>
+</div>-->
+<!--Defining fixed and responsive navbar-->
 
+
+<body>
+  <div class="table-container">
+    <div class="left-table">
+      <table>
+        <tr>
+          <td>
+            <img src="./img/homePageLogo.jpg">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <video src="./content/bullTrack.mp4" autoplay loop muted></video>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="right-table">
+      <table>
+        <tr>
+          <td>
+            <form>
+              <h2>User Login</h2>
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" required>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required>
+              <button id="loginButton" type="submit">Login</button>
+              <br>
+              <hr>
+              <p>Don't have an account? Create one!!</p>
+              <button type="button" id="sugnUpButton">SignUp</button>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script type="" src="./JavaScript/login.js"></script>
+</body>
 
 </html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/wishlist.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <div class="navbar">
+    <b>
+      <img src="../img/fullusflogo.png" style="width:240px;height:48px;">
+    </b>
+    <ul>
+      <!--<a href="../index.html">Home</a>-->
+      <a href="wishList.html">Wish List</a>
+      <a href="inProcess.html">In Process</a>
+      <a href="events.html">Events</a>
+      <a href="offers.html">Offers</a>
+      <a href="aboutUs.html">About Us</a>
+      <a href="chart.html">Chart</a>
+      <a class="material-icons" id="notification" href="notifications.html">notifications_none!</a>
+      <a class="material-icons" id="profile" href="profile.html"> person_outline</a>
+      <a class="logout-button" href="../index.html">LogOut</a>
+    </ul>
+  </div>
+    <br><br>
+
+<div class="container">
+  <h1>Alerts!!</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Company Name</th>
+      <th>Job Role</th>
+      <th>Event</th>
+      <th>Due Date</th>
+      <th>Action</th>
+      <th></th>
+    </tr>
+  </thead>
+<tbody id="notificationsDataTableBody">
+  <script src="../JavaScript/main.js"></script>
+<script src="../JavaScript/notifications.js"></script>
+</tbody>
+<table id="emptymsg"></table>
+</table>
+</div>
+  </body>
+  <body onload="reloadOnce('notificatons')"></body>
+  </html>

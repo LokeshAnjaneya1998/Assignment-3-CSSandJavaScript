@@ -6,7 +6,7 @@ body {
 }
 
 /* Set the width and height of the image inside the .usflogo element */
-div a img {
+div b img {
   width: 240px;
   height: 48px;
 }
@@ -47,6 +47,22 @@ div a img {
   /* Set the font weight of the links */
 }
 
+.navbar b {
+  float: left;
+  /* Float the links to the left */
+  color: #f2f2f2;
+  /* Set the color of the text in the links */
+  text-align: center;
+  /* Center the text inside the links */
+  padding: 5px 35px;
+  /* Add some padding to the links */
+  text-decoration: none;
+  /* Remove the underline from the links */
+  font-size: 17px;
+  /* Set the font size of the links */
+  font-weight: bold;
+  /* Set the font weight of the links */
+}
 /* Change the background color and text color of the links when hovered over */
 .navbar a:hover {
   background-color: #ddd;
@@ -83,4 +99,25 @@ video {
   /* Allow the height to adjust automatically */
   width: 80%;
   /* Set the width of the video */
+}
+
+.navbar .logout-button {
+  position: fixed;
+  top: 15px;
+  right: 0;
+  margin-right: 10px;
+}
+
+
+
+.navbar #notification:hover {
+  background-color:#006748;
+  color: red;
+}
+
+
+
+.navbar #profile:hover {
+  background-color:#006748;
+  color: black;
 }
